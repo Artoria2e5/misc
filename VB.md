@@ -15,5 +15,5 @@ Dim length As Integar 'ms
 SysBeep freq, length 'Just telling myself how to use this……Don't be serious.
 ```
 
-`Beep（）` Also works but it plays the "Default Beep" sound from the user's Windows sound scheme. NOT SUPPORTED FOR WINDOWS VISTA
+`Beep（）` Also works but it plays the "Default Beep" sound from the user's Windows sound scheme. NOT SUPPORTED ON WINDOWS VISTA
 
