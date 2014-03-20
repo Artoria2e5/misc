@@ -7,12 +7,12 @@ beep
 ---
 
 ``` VB
-Public Declare Function SysBeep& Lib "kernel32" Alias "Beep" (ByVal Freq As Long, ByVal Duration As Long)'Declare the Beep
+Public Declare Function SysBeep & Lib "kernel32" Alias "Beep" (ByVal Freq As Long, ByVal Duration As Long)'Declare the Beep
 
 Dim freq As Integer 'Hz 37 to 32,767
 Dim length As Integar 'ms
 
-BeepKernel freq, length 'Just telling myself how to use this……Don't be serious.
+SysBeep freq, length 'Just telling myself how to use this……Don't be serious.
 ```
 
 `Beep（）` Also works but it plays the "Default Beep" sound from the user's Windows sound scheme. NOT SUPPORTED FOR WINDOWS VISTA
