@@ -7,7 +7,7 @@ http://mirrors.yun-idc.com/anthon/openra/ \
 http://mirrors.oss.org.cn/anthon/openra/ \
 http://mirrors.hust.edu.cn/anthon/openra/ \
 http://mirror.pcbeta.com/anthonos/openra/ \
-http://mirror.oss.maxcdn.com/anthonos/ " #mirror.anthonos.org
+http://mirror.oss.maxcdn.com/anthonos/openra/ " #mirror.anthonos.org
 FileNames="freetype-zlib.zip ra-packages.zip"
 
 
