@@ -21,12 +21,7 @@ genmirror(){
 	done
 }
 
-multimirrors(){
-	FIRST=1
-	for FileName in $FileNames
-	do
-		genmirror >> $FileName.txt
-	done
-}
-
-multimirrors
+for FileName in $FileNames
+do
+	genmirror >> $FileName.txt
+done
