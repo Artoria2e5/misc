@@ -21,7 +21,10 @@ genmirror(){
 	done
 }
 
-for FileName in $FileNames
-do
-	genmirror >> $FileName.txt
-done
+#for FileName in $FileNames
+#do
+#	genmirror >> $FileName.txt
+#done
+
+FileName="cg-win32.zip" >> ./releases/windows/cg-mirrors.txt
+FileName="d2k-103-packages.zip" >> ./packages/d2k-103-mirrors.txt
