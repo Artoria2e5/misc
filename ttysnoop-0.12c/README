@@ -1,0 +1,37 @@
+
+README for ttysnoop 0.12c (alpha) -- 21-03-96
+
+[ Version 0.12c is a bugfix release for 0.12. It mainly addresses the
+lingering utmp-entries bug that caused users to "remain online" when
+doing a 'w' or 'who' command. Apart from a few other minor cleanups,
+this version is identical to v0.12. ]
+
+This is version 0.12 of ttysnoop for Linux. It introduces one new feature 
+and now also has support for shadow passwords. (Thanx to those who mailed 
+me the patches)
+
+The package allows you to snoop on login tty's through another tty-device 
+or pseudo-tty. The snoop-tty becomes a 'clone' of the original tty, 
+redirecting both input and output from/to it.
+
+To install, untar the archive, customize Makefile and config.h and type 
+'make'. If all goes well, type 'make install' next and copy the example 
+snooptab.dist file to /etc/snooptab. Edit this new copy and tell your 
+getty/telnetd to execute /sbin/ttysnoops as the login program (instead of 
+/bin/login). You should then be able to snoop upon the tty's listed in 
+/etc/snooptab whevener a user logs in on them.
+
+Mail any bug-reports/patches/comments to carl@miskatonic.inbe.net (preferred)
+or carl@miskatonic.nfe.be.
+
+
+History log:
+
+From v0.11 onwards, user authentication is performed via a password prompt
+whenever snooping is done through a pty.
+
+From v0.12 onwards, the ttysnoop client supports a suspend/resume key
+(default ctrl-\) which suspends/resumes snooping when it is pressed. Might
+come in handy when snooping rz/sz sessions. ;)
+
+Carl Declerck.

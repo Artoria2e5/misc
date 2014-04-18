@@ -1,0 +1,104 @@
+.Dd August 8 1994
+.Dt TTYSNOOP 8
+.Os
+.Sh NAME
+.Nm ttysnoop
+.Nd snoop on a user's tty
+.Sh SYNOPSIS
+.Nm ttysnoop
+.Op Ar pty
+.Nm ttysnoops
+.Op Ar loginname
+.Sh DESCRIPTION
+The
+.Nm ttysnoop
+/
+.Nm ttysnoops
+client-server combo can be used to snoop (watch) on a user's login tty.
+The server
+.Pq Nm ttysnoops
+is usually started by getty(8) or telnetd(8) and reads the file
+.Nm /etc/snooptab
+to find out which tty's should be cloned and which programs to run on them
+(usually /bin/login). A tty may be snooped through a pre-determined (ie.
+fixed) device, or through a dynamically allocated pseudo-tty (pty). This is 
+also specified in the 
+.Nm /etc/snooptab
+file. To connect to the pty, the
+.Nm ttysnoop
+client should be used.
+.Ss Format of /etc/snooptab
+The
+.Nm /etc/snooptab
+file may contain comment lines (starting with a '#'), empty lines, or entries
+for tty's that should be snooped upon. The format of such an entry is as 
+follows:
+.Pp
+.Bd -literal -offset indent
+tty   snoop-device   type   program
+.Ed
+.Pp
+where
+.Pa tty
+is the leaf-name of the tty that should be snooped upon (eg. ttyS2, not
+/dev/ttyS2) OR the wildcard '*', which matches ANY tty.
+.Pa snoop-device
+is the device through which
+.Pa tty
+should be snooped (eg. /dev/tty8) OR the literal constant "socket". The 
+latter is used to tell
+.Pa ttysnoops
+that the snoop-device will be a dynamically allocated pty.
+.Pa type
+specifies the type of program that should be run, currently recognized
+types are "init", "user" and "login" altough the former two aren't really
+needed. Finally,
+.Pa program
+is the full pathname to the program to run when 
+.Pa ttysnoops
+has cloned 
+.Pa tty
+onto
+.Pa snoop-device .
+.Sh EXAMPLE
+The following example
+.Pa /etc/snooptab
+file should illustrate the typical use of
+.Pa ttysnoop
+/
+.Pa ttysnoops :
+.Pp
+.Bd -literal -offset indent
+ #
+ # example /etc/snooptab
+ #
+ ttyS0    /dev/tty7    login    /bin/login
+ ttyS1    /dev/tty8    login    /bin/login
+ #
+ # the wildcard tty should always be the last one in the file
+ #
+ *        socket       login    /bin/login
+ #
+ # example end
+ #
+.Ed
+.Pp
+With the above example, whenever a user logs in on /dev/ttyS0 or /dev/ttyS1,
+either tty will be snooped through /dev/tty7 or /dev/tty8 respectively. Any
+other tty's will be snooped through a pty that will be allocated at the time
+of login. The system-administrator can then run
+.Pa ttysnoop Ar pty
+to snoop through the pty. Note that it is up to the system-administrator to 
+setup getty and/or telnetd so that they execute
+.Pa ttysnoops
+instead of /bin/login.
+.Sh SEE ALSO
+.Xr getty 8 ,
+.Xr telnetd 8
+.Sh FILES
+/etc/snooptab
+.Sh BUGS
+The program is unable to do any terminal control-code translations for the
+original tty and the snoop-device. I doubt it will ever do this.
+.Sh AUTHOR
+Carl Declerck, carl@miskatonic.inbe.net
