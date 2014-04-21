@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+#    Byobu - wrapper script for Mac OS X Application Launcher
+#    Copyright (C) 2012-2014 Dustin Kirkland <kirkland@byobu.co>, et al.
+#
+#    Authors: Dustin Kirkland <kirkland@byobu.co>
+#    Modified for MacPorts by Arthur Wang <arthur200126@gmail.com>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, version 3 of the License.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Consider adding a custom terminal emulator selection since iTerm2-nightly always use different appnames with their versions included.
+# Well I am a user of iTerm-nightly.
+
+
+#set -e
+
+DIR=$(cd "$(dirname "$0")"; pwd)
+RESOURCES="$DIR/../Resources"
+
+if [ -x /Applications/iTerm.app/Contents/MacOS/iTerm ]; then
+	if [ -x /opt/local/bin/byobu ]; then
+		exec /Applications/iTerm.app/Contents/MacOS/iTerm /opt/local/bin/byobu
+	else
+		osascript -e "Display Dialog \"You should install byobu into /opt/local\" with title \"No byobu found\" with icon alias (POSIX file \"$RESOURCES/Byobu.icns\")"
+		exit 1
+	fi
+else
+	if [ -x /Applications/Utilities/Terminal.app/Contents/MacOS/Terminal ]; then
+		osascript -e "Display Dialog \"We are using the OS X terminal which works not really well. Please install iTerm.\" with title \"Not working with iTerm\" with icon alias (POSIX file \"$RESOURCES/Byobu.icns\")""
+                exec /Applications/Utilities/Terminal.app/Contents/MacOS/Terminal /opt/local/bin/byobu
+	else
+		osascript -e "tell application \"Finder\"\
+		-e "    set question to display dialog \"We didn't find iTerm or the OSX terminal so Byobu won't start. Please install iTerm.\" with title \"No Terminal Emulators found\" with icon alias (POSIX file \"$RESOURCES/Byobu.icns\") buttons {\"Cancel\", \"Download...\"} default button 2" \
+		-e "    if button returned of question is equal to \"Download...\" then open location \"http://www.iterm2.com/\""\
+		-e "    activate" \
+		-e "end tell"
+		exit 1
+	fi
+fi

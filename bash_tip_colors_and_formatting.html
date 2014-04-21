@@ -1,0 +1,1102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>
+    bash:tip_colors_and_formatting - FLOZz' MISC  </title>
+
+  <meta name="generator" content="DokuWiki">
+<meta name="robots" content="index,follow">
+<meta name="date" content="2013-05-09T17:09:46+0200">
+<meta name="keywords" content="bash,tip_colors_and_formatting">
+<link rel="search" type="application/opensearchdescription+xml" href="http://misc.flogisoft.com/lib/exe/opensearch.php" title="FLOZz' MISC">
+<link rel="start" href="http://misc.flogisoft.com/">
+<link rel="contents" href="http://misc.flogisoft.com/bash/tip_colors_and_formatting?do=index" title="Sitemap">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="http://misc.flogisoft.com/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="http://misc.flogisoft.com/feed.php?mode=list&amp;ns=bash">
+<link rel="alternate" type="text/html" title="Plain HTML" href="http://misc.flogisoft.com/_export/xhtml/bash/tip_colors_and_formatting">
+<link rel="canonical" href="http://misc.flogisoft.com/bash/tip_colors_and_formatting">
+<link rel="stylesheet" media="screen" type="text/css" href="bash_tip_colors_and_formatting_files/css_002.css">
+<link rel="stylesheet" media="all" type="text/css" href="bash_tip_colors_and_formatting_files/css_003.css">
+<link rel="stylesheet" media="print" type="text/css" href="bash_tip_colors_and_formatting_files/css.css">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+var NS='bash';var JSINFO = {"id":"bash:tip_colors_and_formatting","namespace":"bash"};
+//--><!]]></script>
+<script type="text/javascript" charset="utf-8" src="bash_tip_colors_and_formatting_files/js.js"></script>
+
+  <link rel="shortcut icon" type="image/png" href="http://misc.flogisoft.com/favicon.png">
+
+
+  </head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div id="header">
+	<div id="search"><form action="/" accept-charset="utf-8" class="search" id="dw__search" method="get"><div class="no"><input name="do" value="search" type="hidden"><input id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" type="text"><input value="Search" class="button" title="Search" type="submit"><div style="display: none;" id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form></div>
+	<h1><a href="http://misc.flogisoft.com/" name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">FLOZz' MISC</a> » bash:tip_colors_and_formatting</h1>
+  </div>
+
+  <div class="stylehead">
+
+    
+    
+        <div class="breadcrumbs">
+      <span class="bchead">You are here: </span><a href="http://misc.flogisoft.com/home" title="home">home</a> » <a href="http://misc.flogisoft.com/bash/home" title="bash:home">bash</a> » <a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting" title="bash:tip_colors_and_formatting">tip_colors_and_formatting</a>    </div>
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div style="cursor: pointer;" class="tocheader toctoggle" id="toc__header"><span class="toc_close" style="cursor: pointer;" id="toc__toggle"><span>−</span></span>Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#bash_tipscolors_and_formatting_ansivt100_control_sequences" class="toc">Bash tips: Colors and formatting (ANSI/VT100 Control sequences)</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#formatting" class="toc">Formatting</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#set" class="toc">Set</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#reset" class="toc">Reset</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#colors" class="toc">8/16 Colors</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#foreground_text" class="toc">Foreground (text)</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#background" class="toc">Background</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#colors1" class="toc">88/256 Colors</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#foreground_text1" class="toc">Foreground (text)</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#background1" class="toc">Background</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#attributes_combination" class="toc">Attributes combination</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#terminals_compatibility" class="toc">Terminals compatibility</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#demonstration_programs" class="toc">Demonstration programs</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#colors_and_formatting_16_colors" class="toc">Colors and formatting (16 colors)</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#colors2" class="toc">256 colors</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#links" class="toc">Links</a></span></div></li>
+</ul>
+</li>
+<li class="level1"><div class="li"><span class="li"><a href="#discussion__section" class="toc">Discussion</a></span></div></li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1"><a name="bash_tipscolors_and_formatting_ansivt100_control_sequences" id="bash_tipscolors_and_formatting_ansivt100_control_sequences">Bash tips: Colors and formatting (ANSI/VT100 Control sequences)</a></h1>
+<div class="level1">
+
+<p>
+
+The <strong>ANSI/VT100</strong> terminals and terminal emulators are not just able to display black and white text ;
+they can display <strong>colors</strong> and formatted texts thanks to <strong>escape sequences</strong>. Those sequences are composed of
+the <strong>Escape character</strong> (often represented by ”<code>^[</code>” or ”<code>&lt;Esc&gt;</code>”) followed by some other characters:
+”<code>&lt;Esc&gt;[</code><span style="color: red"><em>FormatCode</em></span><code>m</code>”.
+</p>
+
+<p>
+In Bash, the <code>&lt;Esc&gt;</code> character can be obtained with the following syntaxes:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>\e</code></div>
+</li>
+<li class="level1"><div class="li"> <code>\033</code></div>
+</li>
+<li class="level1"><div class="li"> <code>\x1B</code></div>
+</li>
+</ul>
+
+<p>
+
+<em class="u">Examples:</em>
+</p>
+<div class="table sectionedit2"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0 leftalign"> Code (Bash)                                          </th><th class="col1 leftalign"> Preview                                                          </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"\e[31mHello World\e[0m"</span></pre>
+</td><td class="col1"> <img src="bash_tip_colors_and_formatting_files/escape_example_01.png" class="media" title="Hello World" alt="Hello World"> </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"\033[31mHello\e[0m World"</span></pre>
+</td><td class="col1"> <img src="bash_tip_colors_and_formatting_files/escape_example_02.png" class="media" title="Hello World" alt="Hello World"> </td>
+	</tr>
+</tbody></table></div>
+
+<p>
+
+<em class="u">NOTE¹:</em> The <code>-e</code> option of the <code>echo</code> command enable the parsing of the escape sequences.
+</p>
+
+<p>
+<em class="u">NOTE²:</em> The ”<code>\e[0m</code>” sequence removes all attributes (formatting and colors). It can be a good idea to add it at the end of each colored text. ;) 
+</p>
+
+<p>
+<em class="u">NOTE³:</em> The examples in this page are in <strong>Bash</strong> but the <strong>ANSI/VT100</strong> escape sequences can be used in every programming languages.
+</p>
+
+</div>
+
+<h2 class="sectionedit3"><a name="formatting" id="formatting">Formatting</a></h2>
+<div class="level2">
+
+<p>
+
+Here are the most commonly supported control sequences for formatting text. Their support depends on the used terminal
+(<span class="curid"><a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting#terminals_compatibility" class="wikilink1" title="bash:tip_colors_and_formatting">see the compatibility list</a></span>).
+</p>
+
+</div>
+
+<h3 class="sectionedit4"><a name="set" id="set">Set</a></h3>
+<div class="level3">
+<div class="table sectionedit5"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0"> Code </th><th class="col1 leftalign"> Description                    </th><th class="col2 leftalign"> Example                                            </th><th class="col3 leftalign"> Preview                                                                  </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 centeralign">  1   </td><td class="col1 leftalign"> Bold/Bright                    </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[1mBold"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_01_bright.png" class="media" title="Normal Bold" alt="Normal Bold">           </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 centeralign">  2   </td><td class="col1 leftalign"> Dim                            </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[2mDim"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_02_dim.png" class="media" title="Normal Dim" alt="Normal Dim">               </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 centeralign">  4   </td><td class="col1 leftalign"> Underlined                     </td><td class="col2"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[4mUnderlined"</span></pre>
+</td><td class="col3"> <img src="bash_tip_colors_and_formatting_files/vt100_format_04_underlined.png" class="media" title="Normal Underlined" alt="Normal Underlined"> </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 centeralign">  5   </td><td class="col1"> Blink <sup><a href="#fn__1" name="fnt__1" id="fnt__1" class="fn_top">1)</a></sup> </td><td class="col2"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[5mBlink"</span></pre>
+</td><td class="col3"> <img src="bash_tip_colors_and_formatting_files/vt100_format_05_blink.gif" class="media" title="Normal Blink" alt="Normal Blink"> </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 centeralign">  7   </td><td class="col1"> Reverse (invert the foreground and background colors) </td><td class="col2"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[7minverted"</span></pre>
+</td><td class="col3"> <img src="bash_tip_colors_and_formatting_files/vt100_format_07_inverted.png" class="media" title="Normal inverted" alt="Normal inverted"> </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 centeralign">  8   </td><td class="col1"> Hidden (usefull for passwords) </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[8mHidden"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_08_hidden.png" class="media" title="Normal Hidden" alt="Normal Hidden">         </td>
+	</tr>
+</tbody></table></div>
+
+</div>
+
+<h3 class="sectionedit6"><a name="reset" id="reset">Reset</a></h3>
+<div class="level3">
+<div class="table sectionedit7"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0"> Code </th><th class="col1 leftalign"> Description          </th><th class="col2 leftalign"> Example                                                         </th><th class="col3 leftalign"> Preview                                                                               </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 centeralign">   0  </td><td class="col1"> Reset all attributes </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"\e[0mNormal Text"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_00_reset_all.png" class="media" title="Normal Text" alt="Normal Text">                     </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 centeralign">  21  </td><td class="col1 leftalign"> Reset bold/bright    </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[1mBold \e[21mNormal"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_21_reset_bright.png" class="media" title="Normal Bold Normal" alt="Normal Bold Normal">           </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 centeralign">  22  </td><td class="col1 leftalign"> Reset dim            </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[2mDim \e[22mNormal"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_22_reset_dim.png" class="media" title="Normal Dim Normal" alt="Normal Dim Normal">               </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 centeralign">  24  </td><td class="col1 leftalign"> Reset underlined     </td><td class="col2"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[4mUnderlined \e[24mNormal"</span></pre>
+</td><td class="col3"> <img src="bash_tip_colors_and_formatting_files/vt100_format_24_reset_underlined.png" class="media" title="Normal Underlined Normal" alt="Normal Underlined Normal"> </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 centeralign">  25  </td><td class="col1 leftalign"> Reset blink          </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[5mBlink \e[25mNormal"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_25_reset_blink.gif" class="media" title="Normal Blink Normal" alt="Normal Blink Normal">           </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 centeralign">  27  </td><td class="col1 leftalign"> Reset reverse        </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[7minverted \e[27mNormal"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_27_reset_inverted.png" class="media" title="Normal inverted Normal" alt="Normal inverted Normal">     </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0 centeralign">  28  </td><td class="col1 leftalign"> Reset hidden         </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Normal \e[8mHidden \e[28mNormal"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_format_28_reset_hidden.png" class="media" title="Normal Hidden Normal" alt="Normal Hidden Normal">         </td>
+	</tr>
+</tbody></table></div>
+
+</div>
+
+<h2 class="sectionedit8"><a name="colors" id="colors">8/16 Colors</a></h2>
+<div class="level2">
+
+<p>
+
+The following colors works with most terminals and terminals emulators <sup><a href="#fn__2" name="fnt__2" id="fnt__2" class="fn_top">2)</a></sup>,
+<span class="curid"><a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting#terminals_compatibility" class="wikilink1" title="bash:tip_colors_and_formatting">see the compatibility list</a></span> for more informations.
+</p>
+
+<p>
+<em class="u">NOTE:</em> The colors can vary depending of the terminal configuration.
+</p>
+
+</div>
+
+<h3 class="sectionedit9"><a name="foreground_text" id="foreground_text">Foreground (text)</a></h3>
+<div class="level3">
+<div class="table sectionedit10"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0"> Code </th><th class="col1 leftalign"> Color                    </th><th class="col2 leftalign"> Example                                                 </th><th class="col3"> Preview </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 centeralign">  39  </td><td class="col1"> Default foreground color </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[39mDefault"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_39_default.png" class="media" title="Default Default" alt="Default Default">             </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 centeralign">  30  </td><td class="col1 leftalign"> Black                    </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[30mBlack"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_30_black.png" class="media" title="Default Black" alt="Default Black">                 </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 centeralign">  31  </td><td class="col1 leftalign"> Red                      </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[31mRed"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_31_red.png" class="media" title="Default Red" alt="Default Red">                     </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 centeralign">  32  </td><td class="col1 leftalign"> Green                    </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[32mGreen"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_32_green.png" class="media" title="Default Green" alt="Default Green">                 </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 centeralign">  33  </td><td class="col1 leftalign"> Yellow                   </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[33mYellow"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_33_yellow.png" class="media" title="Default Yellow" alt="Default Yellow">               </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 centeralign">  34  </td><td class="col1 leftalign"> Blue                     </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[34mBlue"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_34_blue.png" class="media" title="Default Blue" alt="Default Blue">                   </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0 centeralign">  35  </td><td class="col1 leftalign"> Magenta                  </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[35mMagenta"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_35_magenta.png" class="media" title="Default Magenta" alt="Default Magenta">             </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0 centeralign">  36  </td><td class="col1 leftalign"> Cyan                     </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[36mCyan"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_36_cyan.png" class="media" title="Default Cyan" alt="Default Cyan">                   </td>
+	</tr>
+	<tr class="row9">
+		<td class="col0 centeralign">  37  </td><td class="col1 leftalign"> Light gray               </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[37mLight gray"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_37_light_gray.png" class="media" title="Default Light gray" alt="Default Light gray">       </td>
+	</tr>
+	<tr class="row10">
+		<td class="col0 centeralign">  90  </td><td class="col1 leftalign"> Dark gray                </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[90mDark gray"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_90_dark_gray.png" class="media" title="Default Dark gray" alt="Default Dark gray">         </td>
+	</tr>
+	<tr class="row11">
+		<td class="col0 centeralign">  91  </td><td class="col1 leftalign"> Light red                </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[91mLight red"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_91_light_red.png" class="media" title="Default Light red" alt="Default Light red">         </td>
+	</tr>
+	<tr class="row12">
+		<td class="col0 centeralign">  92  </td><td class="col1 leftalign"> Light green              </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[92mLight green"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_92_light_green.png" class="media" title="Default Light green" alt="Default Light green">     </td>
+	</tr>
+	<tr class="row13">
+		<td class="col0 centeralign">  93  </td><td class="col1 leftalign"> Light yellow             </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[93mLight yellow"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_93_light_yellow.png" class="media" title="Default Light yellow" alt="Default Light yellow">   </td>
+	</tr>
+	<tr class="row14">
+		<td class="col0 centeralign">  94  </td><td class="col1 leftalign"> Light blue               </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[94mLight blue"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_94_light_blue.png" class="media" title="Default Light blue" alt="Default Light blue">       </td>
+	</tr>
+	<tr class="row15">
+		<td class="col0 centeralign">  95  </td><td class="col1 leftalign"> Light magenta            </td><td class="col2"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[95mLight magenta"</span></pre>
+</td><td class="col3"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_95_light_magenta.png" class="media" title="Default Light magenta" alt="Default Light magenta"> </td>
+	</tr>
+	<tr class="row16">
+		<td class="col0 centeralign">  96  </td><td class="col1 leftalign"> Light cyan               </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[96mLight cyan"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_96_light_cyan.png" class="media" title="Default Light cyan" alt="Default Light cyan">       </td>
+	</tr>
+	<tr class="row17">
+		<td class="col0 centeralign">  97  </td><td class="col1 leftalign"> White                    </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[97mWhite"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_fg_97_white.png" class="media" title="Default White" alt="Default White">                 </td>
+	</tr>
+</tbody></table></div>
+
+</div>
+
+<h3 class="sectionedit11"><a name="background" id="background">Background</a></h3>
+<div class="level3">
+<div class="table sectionedit12"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0 leftalign"> Code  </th><th class="col1 leftalign"> Color                    </th><th class="col2 leftalign"> Example                                                  </th><th class="col3"> Preview </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 centeralign">   49  </td><td class="col1"> Default background color </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[49mDefault"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_49_default.png" class="media" title="Default Default" alt="Default Default">              </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 centeralign">   40  </td><td class="col1 leftalign"> Black                    </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[40mBlack"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_40_black.png" class="media" title="Default Black" alt="Default Black">                  </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 centeralign">   41  </td><td class="col1 leftalign"> Red                      </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[41mRed"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_41_red.png" class="media" title="Default Red" alt="Default Red">                      </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 centeralign">   42  </td><td class="col1 leftalign"> Green                    </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[42mGreen"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_42_green.png" class="media" title="Default Green" alt="Default Green">                  </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 centeralign">   43  </td><td class="col1 leftalign"> Yellow                   </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[43mYellow"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_43_yellow.png" class="media" title="Default Yellow" alt="Default Yellow">                </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 centeralign">   44  </td><td class="col1 leftalign"> Blue                     </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[44mBlue"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_44_blue.png" class="media" title="Default Blue" alt="Default Blue">                    </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0 centeralign">   45  </td><td class="col1 leftalign"> Magenta                  </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[45mMagenta"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_45_magenta.png" class="media" title="Default Magenta" alt="Default Magenta">              </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0 centeralign">   46  </td><td class="col1 leftalign"> Cyan                     </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[46mCyan"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_46_cyan.png" class="media" title="Default Cyan" alt="Default Cyan">                    </td>
+	</tr>
+	<tr class="row9">
+		<td class="col0 centeralign">   47  </td><td class="col1 leftalign"> Light gray               </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[47mLight gray"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_47_light_gray.png" class="media" title="Default Light gray" alt="Default Light gray">        </td>
+	</tr>
+	<tr class="row10">
+		<td class="col0 centeralign">  100  </td><td class="col1 leftalign"> Dark gray                </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[100mDark gray"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_100_dark_gray.png" class="media" title="Default Dark gray" alt="Default Dark gray">         </td>
+	</tr>
+	<tr class="row11">
+		<td class="col0 centeralign">  101  </td><td class="col1 leftalign"> Light red                </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[101mLight red"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_101_light_red.png" class="media" title="Default Light red" alt="Default Light red">         </td>
+	</tr>
+	<tr class="row12">
+		<td class="col0 centeralign">  102  </td><td class="col1 leftalign"> Light green              </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[102mLight green"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_102_light_green.png" class="media" title="Default Light green" alt="Default Light green">     </td>
+	</tr>
+	<tr class="row13">
+		<td class="col0 centeralign">  103  </td><td class="col1 leftalign"> Light yellow             </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[103mLight yellow"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_103_light_yellow.png" class="media" title="Default Light yellow" alt="Default Light yellow">   </td>
+	</tr>
+	<tr class="row14">
+		<td class="col0 centeralign">  104  </td><td class="col1 leftalign"> Light blue               </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[104mLight blue"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_104_light_blue.png" class="media" title="Default Light blue" alt="Default Light blue">       </td>
+	</tr>
+	<tr class="row15">
+		<td class="col0 centeralign">  105  </td><td class="col1 leftalign"> Light magenta            </td><td class="col2"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[105mLight magenta"</span></pre>
+</td><td class="col3"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_105_light_magenta.png" class="media" title="Default Light magenta" alt="Default Light magenta"> </td>
+	</tr>
+	<tr class="row16">
+		<td class="col0 centeralign">  106  </td><td class="col1 leftalign"> Light cyan               </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[106mLight cyan"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_106_light_cyan.png" class="media" title="Default Light cyan" alt="Default Light cyan">       </td>
+	</tr>
+	<tr class="row17">
+		<td class="col0 centeralign">  107  </td><td class="col1 leftalign"> White                    </td><td class="col2 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"Default \e[107mWhite"</span></pre>
+</td><td class="col3 leftalign"> <img src="bash_tip_colors_and_formatting_files/vt100_color_bg_107_white.png" class="media" title="Default White" alt="Default White">                 </td>
+	</tr>
+</tbody></table></div>
+
+</div>
+
+<h2 class="sectionedit13"><a name="colors1" id="colors1">88/256 Colors</a></h2>
+<div class="level2">
+
+<p>
+
+Some terminals (<span class="curid"><a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting#terminals_compatibility" class="wikilink1" title="bash:tip_colors_and_formatting">see the compatibility list</a></span>) can support 88 or 256 colors. Here are the control sequences that permit you to use them.
+</p>
+
+<p>
+<em class="u">NOTE¹</em>: The colors number <code>256</code> is only supported by <strong>vte</strong> (GNOME Terminal, XFCE4 Terminal, Nautilus Terminal, Terminator,…).
+</p>
+
+<p>
+<em class="u">NOTE²</em>: The 88-colors terminals (like <strong>rxvt</strong>) does not have the same color map that the 256-colors terminals.
+For showing the 88-colors terminals color map, run the ”<span class="curid"><a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting#colors2" class="wikilink1" title="bash:tip_colors_and_formatting">256-colors.sh</a></span>” script in a 88-colors terminal.
+</p>
+
+</div>
+
+<h3 class="sectionedit14"><a name="foreground_text1" id="foreground_text1">Foreground (text)</a></h3>
+<div class="level3">
+
+<p>
+
+For using one of the 256 colors on the foreground (text color), the control sequence is
+”<code>&lt;Esc&gt;[38;5;</code><span style="color: red;"><em>ColorNumber</em></span><code>m</code>” where <code>ColorNumber</code> is one of the following colors:
+</p>
+
+<p>
+<img src="bash_tip_colors_and_formatting_files/256_colors_fg.png" class="media" title="XTerm 256 color list (foreground)" alt="XTerm 256 color list (foreground)">
+</p>
+
+<p>
+<em class="u">Examples:</em>
+</p>
+<div class="table sectionedit15"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0 leftalign"> Code (Bash)                                                                                    </th><th class="col1 leftalign"> Preview                                                           </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"\e[38;5;82mHello \e[38;5;198mWorld"</span></pre>
+</td><td class="col1 leftalign"> <img src="bash_tip_colors_and_formatting_files/256-color_fg_example_01.png" class="media" title="Hello World" alt="Hello World">   </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <pre class="code bash"><span class="kw1">for</span> i <span class="kw1">in</span> <span class="br0">{</span><span class="nu0">16</span>..<span class="nu0">21</span><span class="br0">}</span> <span class="br0">{</span><span class="nu0">21</span>..<span class="nu0">16</span><span class="br0">}</span> ; <span class="kw1">do</span> <span class="kw3">echo</span> <span class="re5">-en</span> <span class="st0">"\e[38;5;<span class="es3">${i}</span>m#\e[0m"</span> ; <span class="kw1">done</span> ; <span class="kw3">echo</span></pre>
+</td><td class="col1"> <img src="bash_tip_colors_and_formatting_files/256-color_fg_example_02.png" class="media" title="Blue gradiant" alt="Blue gradiant"> </td>
+	</tr>
+</tbody></table></div>
+
+</div>
+
+<h3 class="sectionedit16"><a name="background1" id="background1">Background</a></h3>
+<div class="level3">
+
+<p>
+
+For using one of the 256 colors on the background, the control sequence is
+”<code>&lt;Esc&gt;[48;5;</code><span style="color: red;"><em>ColorNumber</em></span><code>m</code>” where <code>ColorNumber</code> is one of the following colors:
+</p>
+
+<p>
+<img src="bash_tip_colors_and_formatting_files/256_colors_bg.png" class="media" title="XTerm 256 color list (background)" alt="XTerm 256 color list (background)">
+</p>
+
+<p>
+<em class="u">Examples:</em>
+</p>
+<div class="table sectionedit17"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0 leftalign"> Code (Bash)                                                                                    </th><th class="col1 leftalign"> Preview                                                           </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"\e[40;38;5;82m Hello \e[30;48;5;82m World \e[0m"</span></pre>
+</td><td class="col1 leftalign"> <img src="bash_tip_colors_and_formatting_files/256-color_bg_example_01.png" class="media" title="Hello World" alt="Hello World">   </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <pre class="code bash"><span class="kw1">for</span> i <span class="kw1">in</span> <span class="br0">{</span><span class="nu0">16</span>..<span class="nu0">21</span><span class="br0">}</span> <span class="br0">{</span><span class="nu0">21</span>..<span class="nu0">16</span><span class="br0">}</span> ; <span class="kw1">do</span> <span class="kw3">echo</span> <span class="re5">-en</span> <span class="st0">"\e[48;5;<span class="es3">${i}</span>m \e[0m"</span> ; <span class="kw1">done</span> ; <span class="kw3">echo</span></pre>
+</td><td class="col1"> <img src="bash_tip_colors_and_formatting_files/256-color_bg_example_02.png" class="media" title="Blue gradiant" alt="Blue gradiant"> </td>
+	</tr>
+</tbody></table></div>
+
+</div>
+
+<h2 class="sectionedit18"><a name="attributes_combination" id="attributes_combination">Attributes combination</a></h2>
+<div class="level2">
+
+<p>
+
+Terminals allow attribute combinations. The attributes must be separated by a semicolon (”<code>;</code>”).
+</p>
+
+<p>
+<em class="u">Examples:</em>
+</p>
+<div class="table sectionedit19"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0 leftalign"> Description                             </th><th class="col1 leftalign"> Code (Bash)                                                   </th><th class="col2"> Preview </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 leftalign"> Bold + Underlined                       </td><td class="col1 leftalign"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"\e[1;4mBold and Underlined"</span></pre>
+</td><td class="col2"> <img src="bash_tip_colors_and_formatting_files/combination_example_01.png" class="media" title="Bold and Underlined" alt="Bold and Underlined"> </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> Bold + Red forground + Green background </td><td class="col1"> <pre class="code bash"><span class="kw3">echo</span> <span class="re5">-e</span> <span class="st0">"\e[1;31;42m Yes it is awful \e[0m"</span></pre>
+</td><td class="col2"> <img src="bash_tip_colors_and_formatting_files/combination_example_02.png" class="media" title="Yes it is awful" alt="Yes it is awful"> </td>
+	</tr>
+</tbody></table></div>
+
+</div>
+
+<h2 class="sectionedit20"><a name="terminals_compatibility" id="terminals_compatibility">Terminals compatibility</a></h2>
+<div class="level2">
+<div class="table sectionedit21"><table class="inline">
+	<tbody><tr class="row0">
+		<th class="col0 centeralign" rowspan="2">  Terminal                                                              </th><th class="col1 centeralign" colspan="6">  Formatting                                                     </th><th class="col7 centeralign" colspan="4">  Colors          </th><th class="col11 centeralign" rowspan="2">  Comment  </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 centeralign">  Bold  </th><th class="col1 centeralign">  Dim  </th><th class="col2 centeralign">  Underlined  </th><th class="col3 centeralign">  Blink  </th><th class="col4 centeralign">  invert  </th><th class="col5 centeralign">  Hidden  </th><th class="col6 centeralign">  8   </th><th class="col7 centeralign">  16  </th><th class="col8 centeralign">  88  </th><th class="col9 centeralign">  256  </th>
+	</tr>
+	<tr class="row2">
+		<td class="col0 leftalign"> <a href="http://www.afterstep.org/aterm.php" class="urlextern" title="http://www.afterstep.org/aterm.php">aTerm</a>                           </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  -    </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  -       </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ~   </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  -    </td><td class="col11"> Lighter background instead of blink. </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 leftalign"> <a href="http://www.eterm.org/" class="urlextern" title="http://www.eterm.org/">Eterm</a>                                        </td><td class="col1 centeralign">  ~     </td><td class="col2 centeralign">  -    </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  -       </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ~   </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11"> Lighter color instead of Bold. Lighter background instead of blink. Can overline a text with the ”<code>^[</code><code>[6m</code>” sequence. </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 leftalign"> <a href="http://library.gnome.org/users/gnome-terminal/" class="urlextern" title="http://library.gnome.org/users/gnome-terminal/">GNOME Terminal</a>      </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  ok   </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  ok      </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11"> Strikeout with the ”<code>^[</code><code>[9m</code>” sequence. </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 leftalign"> <a href="http://guake.org/" class="urlextern" title="http://guake.org/">Guake</a>                                            </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  ok   </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  ok      </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11"> Strikeout with the ”<code>^[</code><code>[9m</code>” sequence. </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 leftalign"> <a href="http://konsole.kde.org/" class="urlextern" title="http://konsole.kde.org/">Konsole</a>                                    </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  -    </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  ok     </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  -       </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11 leftalign">           </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0"> <a href="http://software.flogisoft.com/nautilus-terminal/" class="urlextern" title="http://software.flogisoft.com/nautilus-terminal/">Nautilus Terminal</a> </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  ok   </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  ok      </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11"> Strikeout with the ”<code>^[</code><code>[9m</code>” sequence. </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0 leftalign"> <a href="http://rxvt.sourceforge.net/" class="urlextern" title="http://rxvt.sourceforge.net/">rxvt</a>                                  </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  -    </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  ~      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  -       </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  ok  </td><td class="col10 centeralign">  -    </td><td class="col11"> If the background is not set to the default color, Blink make it lighter instead of blinking. Support of italic text with the ”<code>^[</code><code>[3m</code>” sequence. </td>
+	</tr>
+	<tr class="row9">
+		<td class="col0 leftalign"> <a href="http://www.tenshu.net/terminator/" class="urlextern" title="http://www.tenshu.net/terminator/">Terminator</a>                       </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  ok   </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  ok      </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11"> Strikeout with the ”<code>^[</code><code>[9m</code>” sequence. </td>
+	</tr>
+	<tr class="row10">
+		<td class="col0 leftalign"> <a href="http://tilda.sourceforge.net/tildaabout.php" class="urlextern" title="http://tilda.sourceforge.net/tildaabout.php">Tilda</a>                  </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  -    </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  -       </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  -    </td><td class="col11"> Underline instead of Dim. Convert 256-colors in 16-colors. </td>
+	</tr>
+	<tr class="row11">
+		<td class="col0 leftalign"> <a href="http://www.xfce.org/projects/terminal" class="urlextern" title="http://www.xfce.org/projects/terminal">XFCE4 Terminal</a>               </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  ok   </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  ok      </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11"> Strikeout with the ”<code>^[</code><code>[9m</code>” sequence. </td>
+	</tr>
+	<tr class="row12">
+		<td class="col0 leftalign"> <a href="http://invisible-island.net/xterm/xterm.html" class="urlextern" title="http://invisible-island.net/xterm/xterm.html">XTerm</a>                 </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  -    </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  ok     </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  ok      </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11 leftalign">           </td>
+	</tr>
+	<tr class="row13">
+		<td class="col0 leftalign"> xvt                                                                    </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  -    </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  -       </td><td class="col7 centeralign">  -   </td><td class="col8 centeralign">  -   </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  -    </td><td class="col11 leftalign">           </td>
+	</tr>
+	<tr class="row14">
+		<td class="col0 leftalign"> Linux TTY                                                              </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  -    </td><td class="col3 centeralign">  -           </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  -       </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ~   </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  -    </td><td class="col11"> Specials colors instead of Dim and Underlined. Lighter background instead of Blink, Bug with 88/256 colors. </td>
+	</tr>
+	<tr class="row15">
+		<td class="col0"> <a href="http://developer.gnome.org/vte/" class="urlextern" title="http://developer.gnome.org/vte/">VTE Terminal</a> <sup><a href="#fn__3" name="fnt__3" id="fnt__3" class="fn_top">3)</a></sup> </td><td class="col1 centeralign">  ok    </td><td class="col2 centeralign">  ok   </td><td class="col3 centeralign">  ok          </td><td class="col4 centeralign">  -      </td><td class="col5 centeralign">  ok      </td><td class="col6 centeralign">  ok      </td><td class="col7 centeralign">  ok  </td><td class="col8 centeralign">  ok  </td><td class="col9 centeralign">  -   </td><td class="col10 centeralign">  ok   </td><td class="col11"> Strikeout with the ”<code>^[</code><code>[9m</code>” sequence. </td>
+	</tr>
+</tbody></table></div>
+
+<p>
+
+<em class="u">Notations used in the table:</em>
+</p>
+<ul>
+<li class="level1"><div class="li"> ”<code>ok</code>”: Supported by the terminal.</div>
+</li>
+<li class="level1"><div class="li"> ”<code>~</code>”: Supported in a special way by the terminal.</div>
+</li>
+<li class="level1"><div class="li"> ”<code>-</code>”: Not supported at all by the terminal.</div>
+</li>
+</ul>
+
+</div>
+
+<h2 class="sectionedit22"><a name="demonstration_programs" id="demonstration_programs">Demonstration programs</a></h2>
+<div class="level2">
+
+</div>
+
+<h3 class="sectionedit23"><a name="colors_and_formatting_16_colors" id="colors_and_formatting_16_colors">Colors and formatting (16 colors)</a></h3>
+<div class="level3">
+
+<p>
+
+<img src="bash_tip_colors_and_formatting_files/colors_and_formatting.png" class="mediaright" title="Screenshot of the color_and_formatting.sh script" alt="Screenshot of the color_and_formatting.sh script" align="right">
+</p>
+
+<p>
+The following shell script displays a lot of possible combination of the
+ attributes (but not all, because it uses only one formatting attribute 
+at a time).
+</p>
+<dl class="code">
+<dt><a href="http://misc.flogisoft.com/_export/code/bash/tip_colors_and_formatting?codeblock=55" title="Download Snippet" class="mediafile mf_sh">colors_and_formatting.sh</a></dt>
+<dd><pre class="code bash"><span class="co0">#!/bin/bash</span>
+&nbsp;
+<span class="co0"># This program is free software. It comes without any warranty, to</span>
+<span class="co0"># the extent permitted by applicable law. You can redistribute it</span>
+<span class="co0"># and/or modify it under the terms of the Do What The Fuck You Want</span>
+<span class="co0"># To Public License, Version 2, as published by Sam Hocevar. See</span>
+<span class="co0"># http://sam.zoy.org/wtfpl/COPYING for more details.</span>
+&nbsp;
+<span class="co0">#Background</span>
+<span class="kw1">for</span> clbg <span class="kw1">in</span> <span class="br0">{</span><span class="nu0">40</span>..<span class="nu0">47</span><span class="br0">}</span> <span class="br0">{</span><span class="nu0">100</span>..<span class="nu0">107</span><span class="br0">}</span> <span class="nu0">49</span> ; <span class="kw1">do</span>
+	<span class="co0">#Foreground</span>
+	<span class="kw1">for</span> clfg <span class="kw1">in</span> <span class="br0">{</span><span class="nu0">30</span>..<span class="nu0">37</span><span class="br0">}</span> <span class="br0">{</span><span class="nu0">90</span>..<span class="nu0">97</span><span class="br0">}</span> <span class="nu0">39</span> ; <span class="kw1">do</span>
+		<span class="co0">#Formatting</span>
+		<span class="kw1">for</span> attr <span class="kw1">in</span> <span class="nu0">0</span> <span class="nu0">1</span> <span class="nu0">2</span> <span class="nu0">4</span> <span class="nu0">5</span> <span class="nu0">7</span> ; <span class="kw1">do</span>
+			<span class="co0">#Print the result</span>
+			<span class="kw3">echo</span> <span class="re5">-en</span> <span class="st0">"\e[<span class="es3">${attr}</span>;<span class="es3">${clbg}</span>;<span class="es3">${clfg}</span>m ^[<span class="es3">${attr}</span>;<span class="es3">${clbg}</span>;<span class="es3">${clfg}</span>m \e[0m"</span>
+		<span class="kw1">done</span>
+		<span class="kw3">echo</span> <span class="co0">#Newline</span>
+	<span class="kw1">done</span>
+<span class="kw1">done</span>
+&nbsp;
+<span class="kw3">exit</span> <span class="nu0">0</span></pre>
+</dd></dl>
+
+</div>
+
+<h3 class="sectionedit24"><a name="colors2" id="colors2">256 colors</a></h3>
+<div class="level3">
+
+<p>
+
+<img src="bash_tip_colors_and_formatting_files/256-colors.png" class="mediaright" title="Screenshot of the 256-colors.sh script" alt="Screenshot of the 256-colors.sh script" align="right">
+</p>
+
+<p>
+The following script display the 256 colors available on some terminals and terminals emulators like <strong>XTerm</strong> and <strong>GNOME Terminal</strong>.
+</p>
+<dl class="code">
+<dt><a href="http://misc.flogisoft.com/_export/code/bash/tip_colors_and_formatting?codeblock=56" title="Download Snippet" class="mediafile mf_sh">256-colors.sh</a></dt>
+<dd><pre class="code bash"><span class="co0">#!/bin/bash</span>
+&nbsp;
+<span class="co0"># This program is free software. It comes without any warranty, to</span>
+<span class="co0"># the extent permitted by applicable law. You can redistribute it</span>
+<span class="co0"># and/or modify it under the terms of the Do What The Fuck You Want</span>
+<span class="co0"># To Public License, Version 2, as published by Sam Hocevar. See</span>
+<span class="co0"># http://sam.zoy.org/wtfpl/COPYING for more details.</span>
+&nbsp;
+<span class="kw1">for</span> fgbg <span class="kw1">in</span> <span class="nu0">38</span> <span class="nu0">48</span> ; <span class="kw1">do</span> <span class="co0">#Foreground/Background</span>
+	<span class="kw1">for</span> color <span class="kw1">in</span> <span class="br0">{</span><span class="nu0">0</span>..<span class="nu0">256</span><span class="br0">}</span> ; <span class="kw1">do</span> <span class="co0">#Colors</span>
+		<span class="co0">#Display the color</span>
+		<span class="kw3">echo</span> <span class="re5">-en</span> <span class="st0">"\e[<span class="es3">${fgbg}</span>;5;<span class="es3">${color}</span>m <span class="es3">${color}</span><span class="es1">\t</span>\e[0m"</span>
+		<span class="co0">#Display 10 colors per lines</span>
+		<span class="kw1">if</span> <span class="br0">[</span> $<span class="br0">(</span><span class="br0">(</span><span class="br0">(</span><span class="re1">$color</span> + <span class="nu0">1</span><span class="br0">)</span> <span class="sy0">%</span> <span class="nu0">10</span><span class="br0">)</span><span class="br0">)</span> == <span class="nu0">0</span> <span class="br0">]</span> ; <span class="kw1">then</span>
+			<span class="kw3">echo</span> <span class="co0">#New line</span>
+		<span class="kw1">fi</span>
+	<span class="kw1">done</span>
+	<span class="kw3">echo</span> <span class="co0">#New line</span>
+<span class="kw1">done</span>
+&nbsp;
+<span class="kw3">exit</span> <span class="nu0">0</span></pre>
+</dd></dl>
+
+</div>
+
+<h2 class="sectionedit25"><a name="links" id="links">Links</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="http://linux.die.net/man/4/console_codes" class="urlextern" title="http://linux.die.net/man/4/console_codes">Linux console codes manual (''man console_codes'')</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://invisible-island.net/xterm/ctlseqs/ctlseqs.html" class="urlextern" title="http://invisible-island.net/xterm/ctlseqs/ctlseqs.html">XTerm Control Sequences</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://bjh21.me.uk/all-escapes/all-escapes.txt" class="urlextern" title="http://bjh21.me.uk/all-escapes/all-escapes.txt">Compilation of all escape sequences</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://en.wikipedia.org/wiki/ANSI_escape_code" class="interwiki iw_wp" title="http://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape code (Wikipedia)</a></div>
+</li>
+</ul>
+
+</div>
+<div class="footnotes">
+<div class="fn"><sup><a href="#fnt__1" id="fn__1" name="fn__1" class="fn_bot">1)</a></sup> 
+Does not work with most of the terminal emulators, works in the tty and XTerm.</div>
+<div class="fn"><sup><a href="#fnt__2" id="fn__2" name="fn__2" class="fn_bot">2)</a></sup> 
+Some terminals supports only the first 8 colors (30..37 and 40..47), and some others does not support any color at all.</div>
+<div class="fn"><sup><a href="#fnt__3" id="fn__3" name="fn__3" class="fn_bot">3)</a></sup> 
+GTK Widget used in GNOME Terminal, Nautilus Terminal, XFCE4 Terminal…</div>
+</div>
+<div class="comment_wrapper">
+  <h2><a name="discussion__section" id="discussion__section">
+    Discussion
+  </a></h2>
+  <div class="level2 hfeed">
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_972a4456166ac19f13b5e0db3644e888" id="comment_972a4456166ac19f13b5e0db3644e888"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_006.png" class="medialeft photo fn" title="William C Grisaitis" alt="William C Grisaitis" height="40" width="40"><span class="fn">William C Grisaitis</span></span>, <abbr class="published" title="2011-11-13T02:00:30Z">2011/11/13 02:00</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Thanks! This was invaluable in customizing my PS1's:<br><br>        if [[ ${EUID} == 0 ]] ; then<br>
+                PS1='\e[1;31;48;5;234m\u \e[38;5;240mon 
+\e[1;38;5;28;48;5;234m\h \e[38;5;54m\d \@\e[0m\n\e[0;31;48;5;234m[\w] 
+\e[1m\$\e[0m '<br>        else<br>                
+PS1='\e[1;38;5;56;48;5;234m\u \e[38;5;240mon \e[1;38;5;28;48;5;234m\h 
+\e[38;5;54m\d \@\e[0m\n\e[0;38;5;56;48;5;234m[\w] \e[1m\$\e[0m '<br>        fi<br><br>@caravaggisto
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="972a4456166ac19f13b5e0db3644e888" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_87cf240fafe4138d444505937b065cfc" id="comment_87cf240fafe4138d444505937b065cfc"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_004.png" class="medialeft photo fn" title="Barry Scott" alt="Barry Scott" height="40" width="40"><span class="fn">Barry Scott</span></span>, <abbr class="published" title="2012-06-14T21:41:49Z">2012/06/14 21:41</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Great work on terminal compatibility.I have been trying to get blinking 
+text on a Linux tty(at the console). Do you have any idea if it's 
+possible?
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="87cf240fafe4138d444505937b065cfc" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_81a14f50910805ae455975b961dc4052" id="comment_81a14f50910805ae455975b961dc4052"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/flozz.png" class="medialeft photo fn" title="Fabien LOISON" alt="Fabien LOISON" height="40" width="40"><span class="fn">Fabien LOISON</span></span>, <abbr class="published" title="2012-06-14T21:54:48Z">2012/06/14 21:54</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+I Think it is possible, but I haven't found how to do that
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="81a14f50910805ae455975b961dc4052" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_7ec0ad71cc61803b3ca30c86f4045d7b" id="comment_7ec0ad71cc61803b3ca30c86f4045d7b"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_004.png" class="medialeft photo fn" title="Barry Scott" alt="Barry Scott" height="40" width="40"><span class="fn">Barry Scott</span></span>, <abbr class="published" title="2012-06-14T22:11:46Z">2012/06/14 22:11</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+I have looked at infocmp for linux the terminal(TERM=linux) I use and I 
+see blink referenced in it but I'm having a hard time understanding the 
+file format. The cursor blinks why disable blinking text.
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="7ec0ad71cc61803b3ca30c86f4045d7b" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_fcc44209a6e05ae94e16df83395b6c73" id="comment_fcc44209a6e05ae94e16df83395b6c73"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch.png" class="medialeft photo fn" title="Warron" alt="Warron" height="40" width="40"><span class="fn">Warron</span></span>, <abbr class="published" title="2013-04-04T19:09:17Z">2013/04/04 19:09</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Great page on bash coloring and attributes.<br><br>I was actually 
+looking to find out if there is a way to combine attributes {BOLD, 
+Blink, etc} around the same subset of text in doing a bash echo command 
+with the -e option.<br><br>Can you help with this matter?<br><br><br>\\War
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="fcc44209a6e05ae94e16df83395b6c73" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="comment_replies" style="margin-left: 54px;">
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_f1903955fa5efa0b97f7fb605b99d2cc" id="comment_f1903955fa5efa0b97f7fb605b99d2cc"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/flozz.png" class="medialeft photo fn" title="Fabien LOISON" alt="Fabien LOISON" height="40" width="40"><span class="fn">Fabien LOISON</span></span>, <abbr class="published" title="2013-04-04T21:54:48Z">2013/04/04 21:54</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Hello,<br><br>You can combine attributes with a semicolon:<br><br>    echo -e "\e[1;5m Bold+Blink \e[0m"<br>    echo -e "\e[1;4;31m Bold+Underline+Red \e[0m"<br><br>Note that the blink attribute is supported only by few terminals (XTerm, tty).<br><br>Regards,
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="f1903955fa5efa0b97f7fb605b99d2cc" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="comment_replies" style="margin-left: 54px;">
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_b26dac16421182129e333137b1a0128f" id="comment_b26dac16421182129e333137b1a0128f"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch.png" class="medialeft photo fn" title="Warron" alt="Warron" height="40" width="40"><span class="fn">Warron</span></span>, <abbr class="published" title="2013-04-11T21:49:35Z">2013/04/11 21:49</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Thank you Fabian.<br><br>That worked splendidly!  You are the man!
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="b26dac16421182129e333137b1a0128f" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_ab9b2a0878b5b4ab66a01e3f375751c7" id="comment_ab9b2a0878b5b4ab66a01e3f375751c7"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_007.png" class="medialeft photo fn" title="Paulo" alt="Paulo" height="40" width="40"><span class="fn">Paulo</span></span>, <abbr class="published" title="2013-07-23T17:21:41Z">2013/07/23 17:21</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+I want to use 256 color scheme. How can I set a 256-color prompt to only show in terminals that support it?
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="ab9b2a0878b5b4ab66a01e3f375751c7" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="comment_replies" style="margin-left: 54px;">
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_df8ab38f7308fb68542442bbf1d8dc4f" id="comment_df8ab38f7308fb68542442bbf1d8dc4f"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/flozz.png" class="medialeft photo fn" title="Fabien LOISON" alt="Fabien LOISON" height="40" width="40"><span class="fn">Fabien LOISON</span></span>, <abbr class="published" title="2013-07-23T20:21:44Z">2013/07/23 20:21</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Hello,<br><br>You can use the "tput colors" command to know how many 
+colors are supported by the terminal (it is based on the terminfo 
+database):<br><br>if [ $(tput colors) -ge 256 ] ; then<br>    PS1="your 256 color prompt"<br>else<br>    PS1="your default prompt"<br>fi
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="df8ab38f7308fb68542442bbf1d8dc4f" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_cecc7454580d82e67b28bd0c25a808d6" id="comment_cecc7454580d82e67b28bd0c25a808d6"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_003.png" class="medialeft photo fn" title="Rindeal" alt="Rindeal" height="40" width="40"><span class="fn">Rindeal</span></span>, <abbr class="published" title="2013-10-18T00:55:58Z">2013/10/18 00:55</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+I think, printf is better to use to show that 256-color palette, like this:<br><br>for fgbg in 38 48 ; do #Foreground/Background<br>	for color in {0..256} ; do #Colors<br>		#Display the color<br>		printf "\e[${fgbg};5;%sm %3s   \e[0m" "${color}" "${color}"<br>		#Display 10 colors per lines<br>		if [ $((($color + 1) % 10)) == 0 ] ; then<br>			echo #New line<br>		fi<br>	done<br>	echo #New line<br>done
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="cecc7454580d82e67b28bd0c25a808d6" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_b84a6ba15841761d3461a689dbff9297" id="comment_b84a6ba15841761d3461a689dbff9297"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/flozz.png" class="medialeft photo fn" title="Fabien LOISON" alt="Fabien LOISON" height="40" width="40"><span class="fn">Fabien LOISON</span></span>, <abbr class="published" title="2013-10-19T11:22:19Z">2013/10/19 11:22</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Yes it works with printf too :)
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="b84a6ba15841761d3461a689dbff9297" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_6df727bcc57dff446fca05dced8ad045" id="comment_6df727bcc57dff446fca05dced8ad045"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_002.png" class="medialeft photo fn" title="Luke Lee" alt="Luke Lee" height="40" width="40"><span class="fn">Luke Lee</span></span>, <abbr class="published" title="2013-12-05T02:21:05Z">2013/12/05 02:21</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Splendid!
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="6df727bcc57dff446fca05dced8ad045" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_8210c4fe2c90858ae913fd908184a2b2" id="comment_8210c4fe2c90858ae913fd908184a2b2"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_005.png" class="medialeft photo fn" title="ling talfi" alt="ling talfi" height="40" width="40"><span class="fn">ling talfi</span></span>, <abbr class="published" title="2014-01-15T11:08:48Z">2014/01/15 11:08</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Best recap ever found !
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="8210c4fe2c90858ae913fd908184a2b2" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_e97a244a3ee592ccc866c2e4fc24c04f" id="comment_e97a244a3ee592ccc866c2e4fc24c04f"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_008.png" class="medialeft photo fn" title="tstr" alt="tstr" height="40" width="40"><span class="fn">tstr</span></span>, <abbr class="published" title="2014-02-19T00:42:34Z">2014/02/19 00:42</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Nice tips! Tho it would be better to arrange the color tables like this:<br><br>testColFunc(){<br>    str="$(printf "% 4d" "$1")"<br>    echo -ne "$str \e[48;5;${1}m$str \e[0m"<br>}<br>for line in {0..35}<br>do<br>    if [[ line -le 15 ]]<br>        then testColFunc "$line"<br>        else echo -n "          "<br>    fi<br>    for col in {0..5}<br>    do<br>        code="`expr "$col" \* 36 + "$line" + 16`"<br>        testColFunc "$code"<br>    done<br>    if [[ line -le 23 ]]<br>        then testColFunc "`expr 232 + "$line"`"<br>    fi<br>    echo<br>done<br><br>Replace 48 with 38 for fg colors<br>This
+ makes it clear how to get any color, and the fact that you can control 
+the R, G &amp; B color channels separately (6 values per channel):<br>    16 + 36*(round R*5) + 6*(round G*5) + (round B*5)<br>(In case this is needed: You can use the above code for any purpose)
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="e97a244a3ee592ccc866c2e4fc24c04f" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+    <div class="hentry">
+      <div class="comment_head">
+        <a name="comment_3e8d8d9b06e2fa28b68178cf3dd677c4" id="comment_3e8d8d9b06e2fa28b68178cf3dd677c4"></a>
+        <span class="vcard author"><img src="bash_tip_colors_and_formatting_files/fetch_008.png" class="medialeft photo fn" title="tstr" alt="tstr" height="40" width="40"><span class="fn">tstr</span></span>, <abbr class="published" title="2014-02-19T14:05:33Z">2014/02/19 14:05</abbr>
+      </div>
+      <div class="comment_body entry-content" style="margin-left: 54px;">
+Also dim and bold seem to overrule eachother, and resetting either resets both (GNOME Terminal on Ubuntu).
+      </div>
+      <div class="comment_buttons">
+        <form class="button discussion__reply" method="get" action="/doku.php#discussion__comment_form">
+          <div class="no">
+            <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+            <input name="do" value="show" type="hidden">
+            <input name="comment" value="reply" type="hidden">
+            <input name="cid" value="3e8d8d9b06e2fa28b68178cf3dd677c4" type="hidden">
+            <input value="Reply" class="button" title="Reply" type="submit">
+          </div>
+        </form>
+              </div>
+    </div>
+
+        <div class="comment_form">
+          <form id="discussion__comment_form" method="post" action="/doku.php" accept-charset="utf-8">
+            <div class="no">
+              <input name="id" value="bash:tip_colors_and_formatting" type="hidden">
+              <input name="do" value="show" type="hidden">
+              <input name="comment" value="add" type="hidden">
+                      <input name="reply" value="" type="hidden">
+                      <input name="user" value="192.241.239.84" type="hidden">
+              <div class="comment_name">
+                <label class="block" for="discussion__comment_name">
+                  <span>Real name:</span>
+                  <input class="edit" name="name" id="discussion__comment_name" size="50" tabindex="1" type="text">
+                </label>
+              </div>
+              <div class="comment_mail">
+                <label class="block" for="discussion__comment_mail">
+                  <span>E-Mail:</span>
+                  <input class="edit" name="mail" id="discussion__comment_mail" size="50" tabindex="2" type="text">
+                </label>
+              </div>
+                        <div class="comment_text">
+                  Enter your comment:                 
+                  <!-- Fix for disable the toolbar when wikisyntaxok is set to false. See discussion's script.jss -->
+                                      <div id="discussion__comment_toolbar_disabled">
+                                  </div>
+                <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"></textarea>
+              </div>
+        <div style="display: none;" id="plugin__captcha_wrapper"><input name="plugin__captcha_secret" value="XzqVO9zXr/Y=" type="hidden"><label for="plugin__captcha">Please fill all the letters into the box to prove you're human.</label> <input value="XIRXJ" size="5" maxlength="5" name="plugin__captcha" id="plugin__captcha" class="edit" type="text"> <span id="plugin__captcha_code">XIRXJ</span></div>              <input class="button comment_submit" id="discussion__btn_submit" name="submit" accesskey="s" value="Save" title="Save [S]" tabindex="7" type="submit">
+              <input class="button comment_preview_button" id="discussion__btn_preview" name="preview" accesskey="p" value="Preview" title="Preview [P]" type="button">
+
+                      <div class="comment_subscribe">
+                <input id="discussion__comment_subscribe" name="subscribe" tabindex="6" type="checkbox">
+                <label class="block" for="discussion__comment_subscribe">
+                  <span>Subscribe to comments</span>
+                </label>
+              </div>
+        
+              <div class="clearer"></div>
+              <div id="discussion__comment_preview">&nbsp;</div>
+            </div>
+          </form>
+        </div>
+          </div>
+</div>
+
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+      <div class="doc">
+        bash/tip_colors_and_formatting.txt · Last modified: 2013/05/09 17:09 (external edit)      </div>
+    </div>
+
+   
+    <div class="bar" id="bar__bottom">
+      <div class="bar-left" id="bar__bottomleft">
+                <form class="button btn_revs" method="get" action="/bash/tip_colors_and_formatting"><div class="no"><input name="do" value="revisions" type="hidden"><input value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" type="submit"></div></form>              </div>
+      <div class="bar-right" id="bar__bottomright">
+                                <form class="button btn_login" method="get" action="/bash/tip_colors_and_formatting"><div class="no"><input name="do" value="login" type="hidden"><input name="sectok" value="3f6bdfcc677a219a712b650930cb8057" type="hidden"><input value="Login" class="button" title="Login" type="submit"></div></form>        <form class="button btn_index" method="get" action="/bash/tip_colors_and_formatting"><div class="no"><input name="do" value="index" type="hidden"><input value="Sitemap" class="button" accesskey="x" title="Sitemap [X]" type="submit"></div></form>        <a class="nolink" href="#dokuwiki__top"><input class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" type="button"></a>&nbsp;
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+  </div>
+
+<div style="position: absolute; left: 128px; top: 770.5px; display: none;" class="insitu-footnote JSpopup dokuwiki" id="insitu__fn"> 
+Does not work with most of the terminal emulators, works in the tty and XTerm.</div></div>
+<div id="footer">
+
+<div class="footerinc">
+
+	<p>© 2011 Fabien LOISON - <a href="http://www.flogisoft.com/">www.flogisoft.com</a></p>
+
+</div>
+
+<div class="license">Except where otherwise noted, content on this wiki is licensed under the following license:<a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license" class="urlextern">CC Attribution-Share Alike 3.0 Unported</a></div></div>
+
+<div class="no"><img src="bash_tip_colors_and_formatting_files/indexer.gif" alt="" height="1" width="1"></div>
+
+
+</body></html>
