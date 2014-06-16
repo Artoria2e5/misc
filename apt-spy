@@ -1,6 +1,7 @@
 #! /bin/bash
 # AOSC apt-spy equiviant. Reads mirror list from http://www.anthonos.org/mirrors.list and performs speed tests.
 # apt-spy.conf should be:
+# # apt-spy.conf START
 # Sources="os2 os2-anthonos" (Something like that)
 # Method=[ ping | wget ] (Defines how to perform tests)
 # MainURL=http://mirror.anthonos.org/mirrors.list
