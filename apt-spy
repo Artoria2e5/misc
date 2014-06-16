@@ -63,11 +63,12 @@ testwget() {
 }
 
 sort_and_select() {
+  j=0
   for i in $Mirrors; do
-    ((j=0;j++))
+    ((j++))
     Mirror_$j="$i $(test${Method} $i)"
   done
-  # Then we need a sort -V..
+  # Then we need a `sort -V`..
 }
 
 savesuccess() {
@@ -75,7 +76,7 @@ savesuccess() {
   do
     for repo in $Sources 
     do
-      
+      # Printf something
     done
   done
 }
