@@ -67,7 +67,11 @@ sort_and_select() {
   j=0
   for i in $Mirrors; do
     ((j++))
-    Mirror_$j="$i $(test${Method} $i)"
+    Mirror_$j="$(test${Method} $i)"
+    if [ "Mirror_$j" == "fail"]
+    then FAILEDMIRRORS="$FAILEDMIRRORS $i"
+    else # Sort here?
+    fi
   done
   # Then we need a `sort -V`..
 }
