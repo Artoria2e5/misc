@@ -68,12 +68,11 @@ sort_and_select() {
   for i in $Mirrors; do
     ((j++))
     Mirror_$j="$(test${Method} $i)"
-    if [ "Mirror_$j" == "fail"]
-    then FAILEDMIRRORS="$FAILEDMIRRORS $i"
-    else # Sort here?
-    fi
+    [ "Mirror_$j" == "fail"] && FAILEDMIRRORS="$i $FAILEDMIRRORS" || ( TESTEDMIRRORS="$i $TESTEDMIRRORS"; Time="$i $Time" ) 
   done
-  # Then we need a `sort -V`..
+  for ((i=0;i<j;i++)); do
+     
+  done
 }
 
 savesuccess() {
@@ -102,7 +101,7 @@ Sources="os2 os2-anthonos"
 Method=ping
 MainURL=http://mirror.anthonos.org/mirrors.list
 
-if [ -r /etc/apt/apt-spy.conf]; then . /etc/apt/apt-spy.conf; else echo -e "Sources=$Sources\nMethod=$Method\nMainURL=$MainURL" > /etc/apt-spy.conf; echo "Config not found. Writing Defaults."; fi
+[ -r /etc/apt/apt-spy.conf ] && . /etc/apt/apt-spy.conf || ( echo -e "Sources=$Sources\nMethod=$Method\nMainURL=$MainURL" > /etc/apt-spy.conf; echo "Config not found. Writing Defaults." >&2 )
 
 while [ true ]
 do
@@ -148,16 +147,9 @@ done
 case "$ACTION" in
   update)
     mv /etc/apt/sources.list ~/sources.list.bak # Do a backup
-    Mirrors="`wget -nv -O - http://mirror.anthonos.org/mirrors.list`" || ((echo "Trying to use local mirror list" && Mirrors="`cat /etc/apt/mirrors.list`")) || die_hard "AOSC apt-spy can\'t get a mirror list."
-    case "$Method" in # Test the speed, returns sorted results in $TESTEDMIRRORS and failed results in $FAILEDMIRRORS
-      ping)
-        testping
-	;;
-      wget)
-        testwget
-        ;;
-    esac
-    echo "# sources.list genereted by AOSC apt-spy." > /etc/apt/sources.list || die_hard "Cannot write to sources.list, please check permissions:\n`ls -alh /etc/apt`"
+    Mirrors="`wget -nv -O - http://mirror.anthonos.org/mirrors.list`" || ((echo "Trying to use local mirror list" && Mirrors="`cat /etc/apt/mirrors.list`") || die_hard "AOSC apt-spy can\'t get a mirror list.")
+    sort_and_select   
+    echo -e  "# sources.list genereted by AOSC apt-spy.\n# See:\`$0 --help\` for more information." > /etc/apt/sources.list || die_hard "Cannot write to sources.list, please check permissions:\n`ls -alh /etc/apt`"
     savesuccess
     commentfail
     ;;
