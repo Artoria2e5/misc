@@ -1,6 +1,8 @@
 关于调查用户 weisuonan 的请求
 ====
-用户 weisuonan 是用户 treeofsoda 的同学，同时也是 bontanicGarden 等多位用户的同学。之所以提出调查申请，是因为我们注意到了以下情况：
+用户 weisuonan 是用户 treeofsoda 的同学，同时也是 bontanicGarden 等多位用户的同学。
+
+之所以提出调查申请，是因为我们注意到了以下情况：
 
 1. 该玩家常常进入其他玩家的农田，并且完全不会补种。
    * botanicGarden 和 treefosoda 曾多次提醒其补种，但此人屡教不改。
@@ -23,12 +25,12 @@
 ---
 1. 不懂就瞎拆瞎搞。此玩家拆掉过 treeofsoda 的家，用 Diamond pickaxe.
 2. 跟着队友发展起来之后立刻坑死他。该玩家玩几乎一切游戏的常见 (f>=0.85) 行为。
-   * “千万不要和他泽新玩红警，更不要教他打 DOTA。"
+   * “千万不要和谭泽新玩红警，更不要教他打 DOTA。"
 3. 偷东西。我不是开玩笑。
 
 暂时应对措施
 ---
-领地，move false.
+领地，move false. botanicGarden 的领地数量已经最大。
 
 希望得到的处理
 ---
