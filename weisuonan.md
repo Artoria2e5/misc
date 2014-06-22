@@ -1,6 +1,7 @@
 关于调查用户 weisuonan 的请求
 ====
 用户 weisuonan 是用户 treeofsoda 的同学，同时也是 bontanicGarden 等多位用户的同学。之所以提出调查申请，是因为我们注意到了以下情况：
+
 1. 该玩家常常进入其他玩家的农田，并且完全不会补种。
    * botanicGarden 和 treefosoda 曾多次提醒其补种，但此人屡教不改。
     
