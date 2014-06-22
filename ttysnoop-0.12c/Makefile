@@ -41,8 +41,9 @@ clean:
 		rm -f *~ *.o core ttysnoop ttysnoops
 
 install:
-		install -s ttysnoop /sbin
-		install -s ttysnoops /sbin
+		install -s ttysnoop ${DESTDIR}/${PREFIX}/sbin
+		install -s ttysnoops ${DESTDIR}/${PREFIX}/sbin
 		install -m 644 ttysnoop.8 /usr/man/man8/
+		cp snooptab.dist /${DESTDIR}/${PREFIX}/etc/snooptab
 		@echo ... copy snooptab.dist to /etc/snooptab and edit it ...
  
