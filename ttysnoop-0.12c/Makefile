@@ -11,7 +11,7 @@ CC	= gcc
 
 # For shadow support
 
-CCOPTS	= -O2 -DSHADOW_PWD
+CCOPTS	= -Wall -O2 -DSHADOW_PWD
 LIBS	= -lshadow
 
 SERVEROBJS	= ttysnoops.o common.o
