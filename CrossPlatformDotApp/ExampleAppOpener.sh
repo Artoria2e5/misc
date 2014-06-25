@@ -17,7 +17,7 @@
 
 
 # OS="Linux_x86_64 Linux_i386"
-OS="MacOS"
+OS="MacOS" # Well of course I can simply copy that OpenRA shell..
 
 show_help() {
   echo -e "$0 /path/to/app args-to-app\tOpens an application."
@@ -47,5 +47,7 @@ if [ "$1" == "--version" ]; then show_version; exit 0
 if [ -d $1/Contents/Resources ]
 then 
   cd $1/Contents/Resources || die_hard "Permission Denied: cannot chdir into bundle."
+  ( file ../Info.plist | grep binary ) && (mv ../Info.plist ../Info.plist.bak && plistutil -i ../Info.plist.bak -o ../Info.plist || die_hard "FATAL: cannot convert plist.") || true
+  ( xmllint ../Info.plist | )
 else die_hard "Invalid .app bundle!" 
 fi
