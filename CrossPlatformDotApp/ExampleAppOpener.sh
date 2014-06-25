@@ -48,6 +48,5 @@ if [ -d $1/Contents/Resources ]
 then 
   cd $1/Contents/Resources || die_hard "Permission Denied: cannot chdir into bundle."
   ( file ../Info.plist | grep binary ) && (mv ../Info.plist ../Info.plist.bak && plistutil -i ../Info.plist.bak -o ../Info.plist || die_hard "FATAL: cannot convert plist.") || true
-  ( xmllint ../Info.plist | )
 else die_hard "Invalid .app bundle!" 
 fi
