@@ -1,4 +1,4 @@
-#
+	#
 # Makefile for the ttysnoop programs
 #
 
@@ -40,9 +40,14 @@ common.o:	common.c common.h
 clean:
 		rm -f *~ *.o core ttysnoop ttysnoops
 
+uninstall:
+		rm -f ${PREFIX}/{bin,sbin,usr/share/man/man8}/ttysnoop*
+		rm -f ${PREFIX}/etc/snooptab
+
 install:
-		install -s ttysnoop /sbin
-		install -s ttysnoops /sbin
-		install -m 644 ttysnoop.8 /usr/man/man8/
+		install -s ttysnoop ${DESTDIR}/${PREFIX}/sbin
+		install -s ttysnoops ${DESTDIR}/${PREFIX}/sbin
+		install -m 644 ttysnoop.8 ${DESTDIR}/usr/share/man/man8/
+		cp snooptab.dist ${DESTDIR}/${PREFIX}/etc/snooptab
 		@echo ... copy snooptab.dist to /etc/snooptab and edit it ...
  
