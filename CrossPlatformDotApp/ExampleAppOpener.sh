@@ -45,8 +45,14 @@ if [ "$1" == "" ]; then show_help; exit 1; fi
 if [ "$1" == "--version" ]; then show_version; exit 0; fi
 
 if [ -d $1/Contents/Resources ]
-then 
+then
   cd $1/Contents/Resources || die_hard "Permission Denied: cannot chdir into bundle."
-  ( file ../Info.plist | grep binary ) && (mv ../Info.plist ../Info.plist.bak && plistutil -i ../Info.plist.bak -o ../Info.plist || die_hard "FATAL: cannot convert plist.") || true
+  ( file ../Info.plist | grep binary ) && (mv ../Info.plist ../Info.plist.bak && plistutil -i ../Info.plist.bak -o ../Info.plist || die_hard "cannot convert plist.\nDo you have plistutil, bro?") || true
+  # Try one-by-one, using for
+  # (How can we know it works?)
+  # Else use darling.
+  ../${OS}/$(xml2 < ../Info.plist | grep -A1 CFBundleExecutable | tail -n 1 | cut -f 2 -d "=")
 else die_hard "Invalid .app bundle!" 
 fi
+
+# -*- vim:fenc=utf-8:shiftwidth=2:softtabstop=2:autoindent 
