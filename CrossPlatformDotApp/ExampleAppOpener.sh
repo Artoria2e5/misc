@@ -49,9 +49,12 @@ then
   cd $1/Contents/Resources || die_hard "Permission Denied: cannot chdir into bundle."
   ( file ../Info.plist | grep binary ) && (mv ../Info.plist ../Info.plist.bak && plistutil -i ../Info.plist.bak -o ../Info.plist || die_hard "cannot convert plist.\nDo you have plistutil, bro?") || true
   shift
-  # Try one-by-one, using for
+  # TODO:
+  # Try OSes one-by-one, using for
   # (How can we know it works?)
   # Else use darling.
+  
+  # Reads the plist.
   ../${OS}/$(xml2 < ../Info.plist | grep -A1 CFBundleExecutable | tail -n 1 | cut -f 2 -d "=") $*
 else die_hard "Invalid .app bundle!" 
 fi
