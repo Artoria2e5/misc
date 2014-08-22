@@ -11,7 +11,7 @@ Well, let's read the HTML.
 <head> builtins
 ----
 ```JavaScript
-// 1.js: The first JavaScript found in the HTML source.
+// head-1.js: The first JavaScript found in the HTML source.
 // Implements:
 //   winName.{get,remove,clear} Does something with Window name.
 var winName = {
@@ -158,4 +158,310 @@ function() {
     window.g_js[jsNames[i]] = base + jsNames[i] + ".js";
   }
 })();
+```
+Then:
+```JavaScript
+// head-2.js: Contains some user info.
+// UIN: aka ‘qq number’.
+// BITMAP: Regex: [0-9a-f]{16}
+var siDomain = 'ctc.qzonestyle.gtimg.cn';
+var imgcacheDomain = 'ctc.qzs.qq.com';
+var csVar = 'user_platform: imgcache_prefix:ctc. imgcache:qzs.qq.com qzonestyle:qzonestyle.gtimg.cn loginuin:<UIN> uin:<UIN>';
+var g_iLoginUin = /* UIN */;
+var g_iUin = /* UIN */;
+var g_UserBitmap = /* 'BITMAP' */;
+var g_LoginBitmap = /* 'BITMAP' */;
+var ownerProfileSummary = /* ['nickName'] */;
+var g_NowTime = /* 'POSIX TIME IN DEC LIKE IN $(date +%s)' */;
+
+
+// FUNCTIONS
+if (g_iLoginUin == 0) {
+  document.cookie = "uin=;domain=qq.com";
+  document.cookie = "skey=;domain=qq.com";
+  window.location.href = 'http://' + window.location.hostname + "#tourl=" + encodeURIComponent(window.location.href);
+}
+
+// userInfo operations
+(function() {
+  if (typeof window.userInfo != 'undefined') {
+    return;
+  }
+  window.userInfo = {
+    'loginUin': 0,
+    'loginNick': '',
+    'isMember': false,
+    'isManager': false,
+    'isCreator': false,
+    'groupId': '',
+    'entryModule': ''
+  };
+  window.userInfo.set = function(obj) {
+    for (var o in obj) {
+      if (obj.hasOwnProperty(o) && userInfo.hasOwnProperty(o)) {
+        userInfo[o] = obj[o];
+      }
+    }
+  }
+  var hash = location.hash;
+  hash = hash.replace(/^#/, '').replace(/^(!\/)|(!)|(\/)/, '');
+  var fragments = hash.split('\/');
+  if (!fragments[0] || /^\d+$/.test(fragments[0])) {
+    groupId = fragments[0];
+  } else {
+    groupId = parseInt(fragments[0], 10);
+    if (isNaN(groupId)) {
+      window.location.href = "http://" + window.location.hostname + '/group';
+    } else {
+    // Sets the URL!
+      window.location.href = "http://" + window.location.hostname + '/group#!/' + groupId + '/' + fragments[1];
+    }
+  }
+  var entryModule = isNaN(groupId) || !groupId ? (fragments[0] || 'portal') : (fragments[1] || 'home');
+  userInfo['groupId'] = groupId;
+  userInfo['entryModule'] = entryModule;
+  window.uinmap = {};
+  window.facemap = {};
+  window.setmap = function(obj) {
+    for (var o in obj) {
+      if (obj.hasOwnProperty(o)) {
+        uinmap[o] = obj[o].n;
+        facemap[o] = obj[o].f;
+      }
+    }
+  }
+})();
+
+window.refine = {};
+refine.adapter = {
+  quickInit: function() {
+    new Image().src = 'http://3.url.cn/qun/zone/feeds/img/8/f_screen_56.png';
+  },
+  getGroupId: function() {
+    return userInfo['groupId'];
+  },
+  getUin: function() {
+    var cookie = document.cookie;
+    var uin;
+    if (cookie) {
+      var arr = cookie.match(/(^| )uin=([^;]*)/);
+      if (arr && (uin = arr[2])) {
+        uin = parseInt(uin.substring(1, uin.length), 10);
+      }
+    }
+    return uin;
+  },
+  isGroupManager: function() {
+    return userInfo['isManager'] || userInfo['isCreator'];
+  },
+  getPhotoSize: function(type, ft) {
+    return ft !== 'album' ? 628 : (type == 1 ? 800 : 400);
+  },
+  quickReport: function(oid) {
+    var params = {
+      '102': 240451,
+      '103': 240452,
+      '104': 240472,
+      '142': 265680,
+      '155': 271870
+    };
+    return function() {
+      new Image().src = 'http://jsreport.qq.com/cgi-bin/report?_=' + Math.random() + '&id=95&rs=' + oid + '-1-' + params[oid] + '_1-' + refine.adapter.getGroupId();
+    }
+  } (),
+  showpv: function(pv) {
+    pv && $$('#f_vst').html((pv < 999999 ? pv: 999999) + '次访问');
+  },
+  extend: function(ext) {
+    for (var o in ext) {
+      refine.adapter[o] = ext[o];
+    }
+  }
+}; (function(window, undefined) {
+  var $ = window.$$ = function(selector) {
+    if (! (this instanceof $)) {
+      return new $(selector);
+    }
+    return this.add(selector);
+  };
+  var indexOf = Array.prototype.indexOf,
+  toString = Object.prototype.toString;
+  var now = $.now = function() {
+    return new Date().getTime();
+  };
+  var noop = $.noop = function() {};
+  $.isArray = function(obj) {
+    return toString.call(obj) == '[object Array]';
+  };
+  $.inArray = function(elem, arr, i) {
+    if ($.isArray(arr)) {
+      if (indexOf) {
+        return indexOf.call(arr, elem, i);
+      }
+      var len = arr.length;
+      i = i ? i < 0 ? Math.max(0, len + i) : i: 0;
+      for (; i < len; i++) {
+        if (i in arr && arr[i] === elem) {
+          return i;
+        }
+      }
+    }
+    return - 1;
+  };
+  var parseJSON = $.parseJSON = function(data) {
+    try {
+      if (window.JSON && window.JSON.parse) {
+        return window.JSON.parse(data) || false;
+      }
+      return eval('(' + data + ')') || false;
+    } catch(e) {
+      return false;
+    }
+  };
+  function createStandardXHR() {
+    try {
+      return new window.XMLHttpRequest();
+    } catch(e) {}
+  }
+  function createActiveXHR() {
+    try {
+      return new window.ActiveXObject('Microsoft.XMLHTTP');
+    } catch(e) {}
+  }
+  var getXHR = $.getXHR = window.ActiveXObject ?
+  function() {
+    return createStandardXHR() || createActiveXHR();
+  }: createStandardXHR;
+  $.get = function(url, callback, cache) {
+    var xhr = getXHR(),
+    _callback = function() {
+      if (xhr.readyState != 4) {
+        return;
+      }
+      xhr.onreadystatechange = noop;
+      if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304 || xhr.status === 1223) {
+        var data = xhr.responseText;
+        callback($.parseJSON(data), data, xhr);
+        return;
+      }
+      callback(false, '', xhr);
+    };
+    xhr.open('GET', url + (cache ? '': ('&_=' + now())), true);
+    xhr.onreadystatechange = _callback;
+    xhr.send(null);
+  };
+  var preventAbort = window.preventAbort = function(e) {
+    e = e || window.event;
+    var target = e.target || e.srcElement;
+    while (target && target.nodeName != 'A') {
+      target = target.parentNode;
+    }
+    if (target && /^javascript:/.test(target.href)) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      } else {
+        e.returnValue = false;
+      }
+    }
+  };
+  document.onclick = preventAbort;
+})(window);
+function initHomeData() {
+  $$.get('http://' + window.location.hostname + '/cgi-bin/feeds/get_list?qid=' + refine.adapter.getGroupId() + '&i=1&s=-1&n=5',
+  function(data, dataText) {
+    g_isd[2] = $$.now();
+    window.initData = data;
+    window.initText = dataText;
+    if (window.initCallback) {
+      window.initCallback(data, dataText);
+      window.initCallback = null;
+    }
+  },
+  true);
+  refine.adapter.quickInit && refine.adapter.quickInit();
+}
+if (userInfo['entryModule'] == 'home') {
+  initHomeData();
+  g_isd[1] = $$.now();
+}
+```
+
+You can also find a boring style writer inside. Strange to do, but not really
+strange for Tencent. It's said that Tencent guys use MS FrontPage for writing HTML5,
+and made font-family typos in Qzone CSS. Qzone is a 'Zone' service for users themselves.
+
+<body> builtins
+----
+
+Wow, interesting! They use `<body>` like this: `<body class="noAd">`.
+```JavaScript
+// Function: changes URL. I don't know how would it appear elsewhere.
+(function() {
+	if (location.host != 'qun.qq.com' && location.host != 'qun.qzone.qq.com') {
+		location.href = 'http://' + window.location.hostname + '/group';
+	}
+})();
+```
+```CoffeeScript
+(->
+  DEFAULT_COUNT = undefined
+  DEFAULT_GROUP_COUNT = undefined
+  cgiList = undefined
+  fragments = undefined
+  groupId = undefined
+  hash = undefined
+  jsList = undefined
+  hash = location.hash
+  DEFAULT_GROUP_COUNT = 4
+  DEFAULT_COUNT = 4
+  hash = "#!/portal "  if not hash or not hash.length
+  hash = hash.replace(/^#/, "").replace(/^(!\/)|(!)|(\/)/, "")
+  fragments = hash.split(" / ")
+  groupId = parseInt(fragments[0], 10)
+  if isNaN(groupId)
+    GroupZone.setConfig "groupId ", 0
+    GroupZone.setConfig "groupName ", ""
+    QWT.data["entryModule "] = fragments[0] or "portal "
+  else
+    GroupZone.setConfig "groupId ", groupId
+    GroupZone.setConfig "groupName ", groupId
+    QWT.data["entryModule "] = fragments[1] or "home "
+  cgiList = []
+  jsList = []
+  cgiList.push "1.url.cn / qun / zone / feeds / js / 12 / all.js ? v = 2 "
+  cgiList.push window.location.hostname + " / cgi - bin / get_group_member ? callbackFun = _GroupMember & uin = " + QWT.escHTML(QWT.data["loginUin "]) + " & groupid = " + QWT.escHTML(GroupZone.getConfig("groupId ")) + " & neednum = 1 & r = " + Math.random() + " & g_tk = " + QWT.getACSRFToken() + " & ua = " + encodeURIComponent(navigator.userAgent)
+  if QWT.data["entryModule "] is "portal "
+    imweb.portalData = {}
+    cgiList.push window.location.hostname + " / cgi - bin / get_group_list ? groupcount = " + DEFAULT_GROUP_COUNT + " & count = " + DEFAULT_COUNT + " & callbackFun = _GetGroupPortal & uin = " + QWT.data["loginUin "] + " & g_tk = " + QWT.getACSRFToken() + " & ua = " + encodeURIComponent(navigator.userAgent)
+  else
+    cgiList.push window.location.hostname + " / cgi - bin / get_group_share_info ? groupid = " + QWT.escHTML(GroupZone.getConfig("groupId ")) + " & uin = " + QWT.escHTML(QWT.data["loginUin "]) + " & callbackFun = _GroupShareInfo & t = " + Math.random() + " & g_tk = " + QWT.getACSRFToken()
+    cgiList.push "u.photo.qq.com / cgi - bin / upp / qun_list_album_v2 ? getTotalPhoto = 1 & inCharset = utf - 8 & outCharset = utf - 8 & callbackFun = _GroupAlbumList & qunId = " + QWT.escHTML(GroupZone.getConfig("groupId ")) + " & uin = " + QWT.escHTML(QWT.data["loginUin "]) + " & start = 0 & num = 1000 & userinfo = 1 & t = " + Math.random() + " & output_type = json & refer = jsapi & g_tk = " + QWT.getACSRFToken()
+  QWT.load
+    jsList: jsList
+    cgiList: cgiList
+    jsMaxAge: 600
+    jsConcat: false
+
+  return
+)()
+GroupZone.ui.toolbar
+  loginUin: GroupZone.getConfig("loginUin ")
+  nickname: GroupZone.getConfig("loginNick ")
+  groupId: GroupZone.getConfig("groupId ")
+  supportId: 873
+
+(->
+  if QWT.data["entryModule "] isnt "search " and QWT.data["entryModule "] isnt "portal "
+    GroupZone.ui.homeHeader
+      groupId: GroupZone.getConfig("groupId ")
+      groupName: GroupZone.getConfig("groupName ")
+      memberCount: GroupZone.getConfig("members ").length or 0
+      picCount: GroupZone.getConfig("totalPhotoCount ") or 0
+      shareCount: GroupZone.getConfig("shareCount ") or 0
+      bbsCount: GroupZone.getConfig("bbsCount ") or 0
+
+  else
+    GroupZone.ui.searchHeader {}  if QWT.data["entryModule "] is "search "
+  return
+)()
 ```
