@@ -32,13 +32,13 @@ append_ns(){
 	for i; do
 		if tfun=$(declare -f $i); then
 			debug gotfun $i
-			eval "${tfun/$i/$ns::$i}";	# first occourance has to be func declare.
+			eval "${tfun/$i/$ns::$i}";	# first occurrence has to be func declare.
 			fun+="$i ";
 		fi
 		if tvar=$(declare -p $i 2>/dev/null); then
 			debug gotvar $i
-			tvar="${tvar/$i=/${ns}__$i=}";	# first foo= occourance must be varname.
-			eval "${tvar/declare --/}"
+			tvar="${tvar/$i=/${ns}__$i=}";	# first foo= occurrence must be varname.
+			eval "${tvar/declare -- /}"
 			var+="$i ";
 		fi	
 		unset $i
