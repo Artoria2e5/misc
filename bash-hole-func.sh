@@ -18,6 +18,7 @@ filter(){
   _filter_arr=( "${_filter_tmparr[@]}" )
   unset _filter_tmparr $_fe_funname
 }
+# todo: forall=fe_catch forsome=fe_find map(mapfun,oldarr,newarr) reduce(fun . args[]) λ(evalfundef . command)
 g=(p q r qe)
 _lamb_fl_1(){ ((${#1}==1)); }
 filter _lamb_fl_1 g
