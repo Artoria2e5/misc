@@ -15,15 +15,24 @@ typeof_ref(){ :; }
 # λ '{ ((${#1}==1)); }; echo lambda loaded' filter λ g
 : ${_lambda_defs=_} ${_lambda_head=_λ_}
 λ(){
-	local _lambda_func _lambda_exit
+	local _lambda_func _lambda_exit _lambda_body="$1"
+	shift
 	# Assign lambda
 	while _lambda_func=$RANDOM; do
 		[[ "$_lambda_defs" != *,${_lambda_func},* ]] && break
 	done
 	_lambda_defs+="${_lambda_func},"
+	# Complete the function body
+	case "${_lambda_body:0:1}" in
+		(\(|\{) ;;
+		(*) _lambda_body="{ $(_lambda_semi "$_lambda_body") }"
+	esac
+#	case "${_lambda_body::-1}" in
+#		(\}) ;;
+#		(*)  warn ..HEY # Wow you want to do bad things
+#	esac
 	# Create the function in an evil way
-	eval "$_lambda_head$_lambda_func()$1"
-	shift
+	eval "$_lambda_head$_lambda_func()$_lambda_body"
 	# Execute the command
 	"$@"
 	_lambda_exit=$?
@@ -32,6 +41,8 @@ typeof_ref(){ :; }
 	return $_lambda_exit
 }
 lambda(){ λ "$@"; }
+_lambda_last(){ echo "${1:$((${#1}-1)):1}"; } # stubfun for ::-1 < 4.3
+_lambda_semi(){ echo -n "$1"; [ "$(_lambda_last "$1")" == ";" ] || echo -n \;; }
 # alias for Importing Lambdas
 alias _lambda_funname_conv_1='
 if [[ "$1" == λ || "$1" == lambda ]]; then
@@ -156,18 +167,18 @@ unset i
 
 testnew lambda_illegal
 for i in foreach filter forall forone map reduce; do
-	test="$i	λ_illegal"
 	"$i" λ f o o
-	testchk 3
+	test="$i	λ_illegal" testchk 3
 done
 testend
 
 testnew lambda_create
-test="λ '{ echo MISAKA "$1"; }; echo RAILGUN' foreach λ a b c"
+test="λ '{ echo MISAKA \"$1\"; }; echo RAILGUN' foreach λ a b c" \
 testexp='RAILGUN
 MISAKA a
 MISAKA b
 MISAKA c' \
 testcmd λ '{ echo MISAKA "$1"; }; echo RAILGUN' \
 foreach λ a b c
+testexp=$'a\nb' testcmd λ 'cut -d" " -f 1 <<< "$1"' foreach λ 'a b e' 'b c'
 testend
