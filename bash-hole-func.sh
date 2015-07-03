@@ -23,12 +23,13 @@ typeof_ref(){ :; }
 	done
 	_lambda_defs+="${_lambda_func},"
 	# Complete the function body
+	# _lambda_body = ( commands ';'? ) | { commands; } | ((expr))
 	case "${_lambda_body:0:1}" in
 		(\(|\{) ;;
 		(*) _lambda_body="{ $(_lambda_semi "$_lambda_body") }"
 	esac
 #	case "${_lambda_body::-1}" in
-#		(\}) ;;
+#		(\}|\)) ;;
 #		(*)  warn ..HEY # Wow you want to do bad things
 #	esac
 	# Create the function in an evil way
@@ -41,9 +42,11 @@ typeof_ref(){ :; }
 	return $_lambda_exit
 }
 lambda(){ λ "$@"; }
+_λ(){ "$_lambda_head$_lambda_func" "$@"; } # wrapper for non-lambda-aware
 _lambda_last(){ echo "${1:$((${#1}-1)):1}"; } # stubfun for ::-1 < 4.3
 _lambda_semi(){ echo -n "$1"; [ "$(_lambda_last "$1")" == ";" ] || echo -n \;; }
 # alias for Importing Lambdas
+# TODO: (λ|lambda)(.?) ->  create-lambda regex_g2
 alias _lambda_funname_conv_1='
 if [[ "$1" == λ || "$1" == lambda ]]; then
 	[ "$_lambda_func" ] || return 3
