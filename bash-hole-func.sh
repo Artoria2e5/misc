@@ -96,7 +96,7 @@ forone(){
 	[ "$2" ] || return 2
 	_lambda_funname_conv_1
 	local _fo_fn="$1"; shift;
-	! λ "{ ! $(argprint "$1") }" forall λ "$@"
+	! λ "{ ! $(argprint "$_fo_fn") \"\$@\"; }" forall λ "$@"
 }
 # map mapfun oldarr_name [newarr_name=oldarr_name]
 map(){
@@ -117,7 +117,7 @@ reduce(){
 	local _reduce_cur _reduce_pre _reduce_fun="$1"
 	shift
 	for _reduce_cur; do
-		_reduce_pre="$("$_reduce_fun" "$_reduce_cur")"
+		_reduce_pre="$("$_reduce_fun" "$_reduce_pre" "$_reduce_cur")"
 	done
 	echo "$_reduce_pre"
 }
