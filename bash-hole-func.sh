@@ -176,6 +176,7 @@ done
 testend
 
 testnew lambda_create
+lp(){ echo "$_lambda_body"; }
 test="λ '{ echo MISAKA \"$1\"; }; echo RAILGUN' foreach λ a b c" \
 testexp='RAILGUN
 MISAKA a
@@ -184,4 +185,24 @@ MISAKA c' \
 testcmd λ '{ echo MISAKA "$1"; }; echo RAILGUN' \
 foreach λ a b c
 testexp=$'a\nb' testcmd λ 'cut -d" " -f 1 <<< "$1"' foreach λ 'a b e' 'b c'
+testexp="{ foo; }; :" testcmd λ "{ foo; }; :" lp
+testexp="((a))" testcmd λ "((a))" lp
+testexp="{ g; }" testcmd λ g lp
+testend
+
+testnew mapreduce
+from=(1 3 5 2 3) to=()
+λ 'local i=$1; echo $((i*(i+5)))' map λ from to
+test='(1 3 5 2 3) -> i*(i+5)' testchk 0
+test='reduce acc' testexp=118 testcmd \
+λ 'echo $(($1 + $2))' \
+reduce λ "${to[@]}"
+testend
+
+testnew forall-forone
+λ '(($1%2==0))' forall λ "${to[@]}"
+test='(all? odd? to)  ' testchk
+λ '(($1%2==0))' forone λ "${from[@]}"
+test='(one? odd? from)' testchk
+[ "$_fa_index" == 3 ]; test='=> $_fa_index == 3' testchk
 testend
