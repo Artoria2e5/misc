@@ -1,4 +1,6 @@
 #!/bin/bash
+# Brainhole-level implementations for anonomous functions and more.
+# TODO: add mktemp-dir-file-based GNU parallel impl for 
 shopt -s extglob expand_aliases
 argprint(){ printf '%q ' "$@"; }
 # typeof _varname_
@@ -41,12 +43,11 @@ typeof_ref(){ :; }
 	unset -f $_lambda_head$_lambda_func
 	return $_lambda_exit
 }
-lambda(){ λ "$@"; }
-_λ(){ "$_lambda_head$_lambda_func" "$@"; } # wrapper for non-lambda-aware
-_lambda_last(){ echo "${1:$((${#1}-1)):1}"; } # stubfun for ::-1 < 4.3
-_lambda_semi(){ echo -n "$1"; [ "$(_lambda_last "$1")" == ";" ] || echo -n \;; }
+_λ(){ "$_lambda_head$_lambda_func" "$@"; } # calls the lambda func
+alias lambda=λ _lambda=_λ
+_lambda_semi(){ echo -n "$1"; [ "$1" == *\; ] || echo -n \;; }
 # alias for Importing Lambdas
-# TODO: (λ|lambda)(.?) ->  create-lambda regex_g2
+# TODO: (λ|lambda)(.+) -> create-lambda regex_g2
 alias _lambda_funname_conv_1='
 if [[ "$1" == λ || "$1" == lambda ]]; then
 	[ "$_lambda_func" ] || return 3
