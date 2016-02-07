@@ -43,16 +43,16 @@ typeof_ref(){ :; }
 	unset -f $_lambda_head$_lambda_func
 	return $_lambda_exit
 }
-_λ(){ "$_lambda_head$_lambda_func" "$@"; } # calls the lambda func
+_λ(){ "$_lambda_head$_lambda_func" "$@"; } # calls the current lambda func
 alias lambda=λ _lambda=_λ
 _lambda_semi(){ echo -n "$1"; [ "$1" == *\; ] || echo -n \;; }
 # alias for Importing Lambdas
-# TODO: (λ|lambda)(.+) -> create-lambda regex_g2
+# todo split up lambda alloc-free for this to work happily
 alias _lambda_funname_conv_1='
-if [[ "$1" == λ || "$1" == lambda ]]; then
-	[ "$_lambda_func" ] || return 3
-	shift
-	set -- "$_lambda_head$_lambda_func" "$@"
+if [[ "$1" == @(λ|lambda)'>'* ]]; then
+	local __lambda_import_body=${1#@(λ|lambda)>}
+	printf "notimpl: lambda_func_imp_lit(){\\n%s\\n}" "$__lambda_import_body"
+	return 3
 fi'
 # foreach funcname [array-args]
 foreach(){
@@ -66,13 +66,10 @@ foreach(){
 filter(){
 	[ "$2" ] || return 2
 	_lambda_funname_conv_1
-	# todo typeof check or key array saving
 	declare -n _filter_arr="$2"
-	declare -a _filter_tmparr=()
 	local _fe_funname="_fe_$1"
-	eval "${_fe_funname}(){ $(argprint "$1") \"\$1\" && _filter_tmparr+=(\"\$1\"); }"
-	foreach "$_fe_funname" "${_filter_arr[@]}"
-	_filter_arr=( "${_filter_tmparr[@]}" )
+	eval "${_fe_funname}(){ $(argprint "$1") \"\${_filter_arr[\$1]}\" || unset \"_filter_arr[\$1]\" }"
+	foreach "$_fe_funname" "${!_filter_arr[@]}"
 	unset _filter_tmparr $_fe_funname
 }
 # forall funcname args[] => (all? funcname? args)
@@ -106,10 +103,9 @@ map(){
 	_lambda_funname_conv_1
 	declare -n _map_old="$2" _map_new="$3"
 	local _map_tmp=() _map_needle
-	for _map_needle in "${_map_old[@]}"; do
-		_map_tmp+=("$("$1" "$_map_needle")")
+	for _map_needle in "${!_map_old[@]}"; do
+		_map_new["$_map_needle"]=("$("$1" "${_map_old[$_map_needle]}")")
 	done
-	_map_new=("${_map_tmp[@]}")
 }
 # reduce funname args[]
 reduce(){
@@ -120,7 +116,7 @@ reduce(){
 	for _reduce_cur; do
 		_reduce_pre="$("$_reduce_fun" "$_reduce_pre" "$_reduce_cur")"
 	done
-	echo "$_reduce_pre"
+	printf '%s' "$_reduce_pre"
 }
 return &>/dev/null # End Library
 ## BEGIN TEST
@@ -178,32 +174,32 @@ testend
 
 testnew lambda_create
 lp(){ echo "$_lambda_body"; }
-test="λ '{ echo MISAKA \"$1\"; }; echo RAILGUN' foreach λ a b c" \
-testexp='RAILGUN
-MISAKA a
-MISAKA b
-MISAKA c' \
-testcmd λ '{ echo MISAKA "$1"; }; echo RAILGUN' \
-foreach λ a b c
-testexp=$'a\nb' testcmd λ 'cut -d" " -f 1 <<< "$1"' foreach λ 'a b e' 'b c'
-testexp="{ foo; }; :" testcmd λ "{ foo; }; :" lp
-testexp="((a))" testcmd λ "((a))" lp
-testexp="{ g; }" testcmd λ g lp
+test="λ '{ echo MISAKA \"$1\"; }; echo RAILGUN' foreach _λ a b c" \
+testexp=$'RAILGUN\nMISAKA a\nMISAKA b\nMISAKA c' testcmd \
+	λ '{ echo MISAKA "$1"; }; echo RAILGUN' \
+		foreach _λ a b c
+testexp=$'a\nb' testcmd \
+	λ 'cut -d" " -f 1 <<< "$1"' \
+		foreach _λ 'a b e' 'b c'
+testexp="{ foo; }; :" testcmd \
+	λ "{ foo; }; :" lp
+testexp="((a))" testcmd \
+	λ "((a))" lp
+testexp="{ g; }" testcmd \
+	λ g lp
 testend
 
 testnew mapreduce
 from=(1 3 5 2 3) to=()
-λ 'local i=$1; echo $((i*(i+5)))' map λ from to
+λ 'local i=$1; echo $((i*(i+5)))' map _λ from to
 test='(1 3 5 2 3) -> i*(i+5)' testchk 0
 test='reduce acc' testexp=118 testcmd \
-λ 'echo $(($1 + $2))' \
-reduce λ "${to[@]}"
+	λ 'echo $(($1 + $2))' \
+		reduce _λ "${to[@]}"
 testend
 
 testnew forall-forone
-λ '(($1%2==0))' forall λ "${to[@]}"
-test='(all? odd? to)  ' testchk
-λ '(($1%2==0))' forone λ "${from[@]}"
-test='(one? odd? from)' testchk
-[ "$_fa_index" == 3 ]; test='=> $_fa_index == 3' testchk
+λ '(($1%2==0))' forall _λ "${to[@]}";	test='(all? odd? to)  ' testchk
+λ '(($1%2==0))' forone _λ "${from[@]}";	test='(one? odd? from)' testchk
+[ "$_fa_index" == 3 ];			test='=> $_fa_index == 3' testchk
 testend
