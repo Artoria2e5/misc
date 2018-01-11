@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg1923"
+   sodipodi:version="0.32"
+   inkscape:version="0.92.1 r15371"
+   width="190"
+   height="120"
+   version="1.0"
+   sodipodi:docname="baa-numtot.svg">
+  <metadata
+     id="metadata1928">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Bay Area Rapid Transit (BART) logo</dc:title>
+        <dc:date>July 20, 2006</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>lensovet</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Attribution" />
+        <cc:prohibits
+           rdf:resource="http://web.resource.org/cc/CommercialUse" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs1926" />
+  <sodipodi:namedview
+     inkscape:window-height="986"
+     inkscape:window-width="1920"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="2.4263158"
+     inkscape:cx="102.66776"
+     inkscape:cy="97.61956"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:current-layer="svg1923"
+     width="190px"
+     height="120px"
+     showgrid="false"
+     inkscape:window-maximized="1" />
+  <g
+     aria-label="nu"
+     transform="scale(1.1046857,0.90523487)"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.84962654px;line-height:1.25;font-family:'TeX Gyre Adventor';-inkscape-font-specification:'TeX Gyre Adventor';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:1.05310166"
+     id="text4489">
+    <g
+       id="g4498"
+       transform="matrix(1.2830372,0,0,1,-0.61286496,0)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4493"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:151.64668274px;font-family:'TeX Gyre Adventor';-inkscape-font-specification:'TeX Gyre Adventor Bold';fill:#0083d2;fill-opacity:1;stroke-width:1.05310166"
+         d="M 131.37521,126.21966 V 42.207396 H 111.2062 V 81.78718 c 0,11.221854 -0.90988,16.377842 -3.18458,20.16901 -3.03293,4.85269 -8.492218,7.73398 -15.316318,7.73398 -9.70539,0 -15.92291,-4.09446 -15.92291,-26.386523 V 42.207396 H 56.613388 V 87.24646 c 0,29.5711 12.435024,40.9446 31.997454,40.9446 10.16032,0 16.529488,-2.57799 24.111828,-10.00868 v 8.03728 z" />
+      <path
+         id="path4491"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:151.64668274px;font-family:'TeX Gyre Adventor';-inkscape-font-specification:'TeX Gyre Adventor Bold';fill:#000000;stroke-width:1.05310166"
+         d="M 76.775492,126.21966 V 81.180593 c 0,-15.013021 -1.516467,-22.292062 -6.065868,-28.81287 -5.45928,-7.885627 -14.558081,-12.131734 -26.234876,-12.131734 -9.553741,0 -16.226195,2.881287 -23.656882,10.008681 V 42.207396 H 2.1653236 V 126.21966 H 22.334332 V 86.639874 c 0,-11.221855 0.758234,-16.074549 3.336227,-20.169009 3.184581,-5.004341 8.492215,-7.733981 14.861375,-7.733981 10.008681,0 16.074549,3.942814 16.074549,26.386523 v 41.096253 z"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'TeX Gyre Heros';-inkscape-font-specification:'TeX Gyre Heros';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+     x="18.292843"
+     y="12.429502"
+     id="text4529"><tspan
+       sodipodi:role="line"
+       id="tspan4527"
+       x="18.292843"
+       y="26.973501"
+       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Heavy'" /></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:25.33333397px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Heavy';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;text-align:start;letter-spacing:12.98000145px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+     x="94.400063"
+     y="23.145336"
+     id="text4537"><tspan
+       sodipodi:role="line"
+       id="tspan4535"
+       x="100.89007"
+       y="23.145336"
+       style="font-size:25.33333397px;text-align:center;letter-spacing:12.98000145px;text-anchor:middle;fill:#000000">NUMTOT</tspan></text>
+</svg>
