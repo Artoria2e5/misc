@@ -1,4 +1,4 @@
-# 4jieB monomer
+# 4jleB monomer
 
 A helix-swapped dimeric structure of the _P. falciparum_ PFI1780w PHIST domain was determined by
 [Oberli, et al. (2018)](https://www.fasebj.org/doi/10.1096/fj.14-256057) in entry
