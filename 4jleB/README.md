@@ -8,9 +8,9 @@ data is provided. To facilitate direct classification of the protein against str
 a monomeric structure is built.
 
 ## Material and Methods
-A monomeric model of 4jle was created by only taking `A:117-167` and `B:1-110` from the file,
-so that the &alpha;3-&alpha;4 loop is deleted and will be automatically remodeled.
-This model was then used as a template in Swiss-model to model against the SEQRES to form a
+The template was created by only taking `A:117-167` and `B:1-110` from the full model,
+so that the &alpha;3-&alpha;4 loop will be automatically remodeled when used as a template.
+This template was then used to model against the SEQRES in Swiss-model workspace to form a
 complete structure for the remodeled protein.
 
 The model was compared against CATH-db using CATHEDRAL and SCOP 1.73 using PDBeFOLD.
