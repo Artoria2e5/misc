@@ -25,6 +25,6 @@ The structual similarity search did not yield any interesting results.
 
 ## Retrieving the data
 The Swiss-Prot report for job `VR9UPz` is attached as `pdb4jle_monomer.zip` in this directory. The
-template file is included.
+template file, which is probably useful for modeling homologous proteins, is included.
 
 ![model](https://i.imgur.com/wlI31kt.png)
