@@ -12,11 +12,15 @@ so that the &alpha;3/&alpha;4 loop is deleted and will be automatically remodele
 This model was then used as a template in Swiss-model to model against the SEQRES to form a
 complete structure for the remodeled protein.
 
+The model was compared against CATH-db using CATHEDRAL and SCOP 1.73 using PDBeFOLD.
+
 ## Results 
 Modelling logs indicate that a database match was successfully found for `A.LEU110-(NGKLCE)-A.ARG117`.
 The model is apparently of high quality (QMEAN Z-score = 1.13).
 
-(TODO: CATH, PDBeFOLD)
+The structual similarity search results were not interesting.
+* [CATHDB result](http://www.cathdb.info/search/grid_submission/12201)
+* [PDBeFold result](https://github.com/Artoria2e5/misc/blob/master/4jleB/sse.txt)
 
 ## Retrieving the data
 The Swiss-Prot report for job `VR9UPz` is attached as `pdb4jle_monomer.zip` in this directory. The
