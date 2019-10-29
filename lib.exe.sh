@@ -10,7 +10,7 @@ possible_genlibs=(
     genlib
     /opt/x86_64-w64-mingw32/bin/genlib
     /opt/i686-w64-mingw32/bin/genlib
-    FAIl
+    FAIL
 )
 
 for genlib in "${possible_genlibs[@]}"
@@ -52,6 +52,7 @@ for i; do
             mach=${i#/machine:}
             args+=(-a "${machine_transl[$mach]}") ;;
         (/def:*)
+            # I am thinking it should be guessed and handled here.
             file[0]=("${i#/def:}") ;;
         (/out:*)
             file[1]=("${i#/out:}") ;;
