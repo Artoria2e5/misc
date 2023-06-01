@@ -1,6 +1,6 @@
 #! /bin/bash
 # An example script which shows the concept of cross-platform .app bundling.
-# Copyright (c) 2014 Arthur Wang <arthur200126@gmail.com>
+# Copyright (c) 2014 Mingye Wang <arthur200126@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ show_help() {
 
 show_version() {
   echo -e "$0 version 0.0.0, An example script which shows the concept of cross-platform .app bundling."
-  echo -e "Copyright (c) 2014 Arthur Wang <arthur200126@gmail.com>"
+  echo -e "Copyright (c) 2014 Mingye Wang <arthur200126@gmail.com>"
   echo -e "This Shell script is released under the terms of the GNU General Public License,"
   echo -e "version 2 or or (at your option) any later version."
 }
