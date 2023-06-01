@@ -1,3 +1,4 @@
 
 *.swp
 bash_color.zip
+.mypy_cache
