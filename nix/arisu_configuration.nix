@@ -167,6 +167,8 @@
       source-han-serif
       noto-fonts-emoji
       ubuntu_font_family
+      gyre-fonts
+      libertinus
     ];
 
     fontconfig = {
@@ -179,9 +181,22 @@
           "Sarasa Mono SC"
           "JetBrainsMono Nerd Font Mono"
         ];
-        sansSerif = [ "Ubuntu" "Sarasa Gothic SC" ];
-        serif = [ "Source Han Serif SC" ];
+        sansSerif = [
+          "Ubuntu"
+          "Sarasa Gothic SC"
+        ];
+        serif = [
+          "TeX Gyre Pagella"
+          "Source Han Serif SC"
+        ];
       };
+      localConf = ''
+        <!-- Linux Libertine &rarr; Libertinus -->
+        <match target="pattern">
+          <test qual="any" name="family"><string>Linux Libertine</string></test>
+          <edit name="family" mode="assign" binding="same"><string>Libertinus Serif</string></edit>
+        </match>
+      '';
     };
   };
 
