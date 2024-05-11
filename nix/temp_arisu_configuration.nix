@@ -101,7 +101,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -114,7 +114,7 @@
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://mirrors.ustc.edu.cn/nix-channels/store"
     ];
-  }
+  };
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -138,13 +138,51 @@
     "compress=zstd"
   ];
   swapDevices = [ { device = "/dev/disk/by-uuid/7398edc0-ae0c-42d9-a078-2ac3a7b5acae"; } ];
-  
+
   zramSwap.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
+  };
+  boot.kernelModules = [
+    "nct6775"
+    "zenpower"
+  ];
+  boot.blacklistedKernelModules = [ "k10temp" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.zenpower ];
+  # boot.kernelParams = [ "" ];
+
+  i18n.inputMethod = {
+    enabled = "ibus";
+    ibus.engines = with pkgs.ibus-engines; [ rime ];
+  };
+
+  # copied some of cyrolitia's stuff
+  fonts = {
+    packages = with pkgs; [
+      sarasa-gothic
+      # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      source-han-serif
+      noto-fonts-emoji
+      ubuntu_font_family
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        emoji = [
+          "JetBrainsMono Nerd Font"
+          "Noto Color Emoji"
+        ];
+        monospace = [
+          "Sarasa Mono SC"
+          "JetBrainsMono Nerd Font Mono"
+        ];
+        sansSerif = [ "Ubuntu" "Sarasa Gothic SC" ];
+        serif = [ "Source Han Serif SC" ];
+      };
+    };
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
