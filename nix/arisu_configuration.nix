@@ -159,8 +159,8 @@
     ibus.engines = with pkgs.ibus-engines; [ rime ];
   };
 
-  # copied some of cyrolitia's stuff
   fonts = {
+    # copied some of cyrolitia's stuff
     packages = with pkgs; [
       sarasa-gothic
       # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
@@ -197,6 +197,8 @@
           <edit name="family" mode="assign" binding="same"><string>Libertinus Serif</string></edit>
         </match>
       '';
+      subpixel.rgba = "rgb";
+      hinting.style = "medium";
     };
   };
 
