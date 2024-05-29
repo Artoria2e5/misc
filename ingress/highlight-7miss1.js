@@ -78,7 +78,8 @@ function wrapper(plugin_info) {
     if (portal_level !== 7) return;
     var guid = data.portal.options.guid;
 
-    if (!window.portalDetail.isFresh(guid)) {
+    // Accept old data (false). Only request when completely missing (undefined).
+    if (window.portalDetail.isFresh(guid) === undefined) {
       var req_promise = window.portalDetail.request(guid);
       req_promise.then((function (_) {
         self.highlightSevenMissOne_real(data, window.portalDetail.get(guid));
