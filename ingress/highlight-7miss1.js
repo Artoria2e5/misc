@@ -54,9 +54,11 @@ function wrapper(plugin_info) {
       version: "0.0.4",
       changes: [
         "Add dashed stroke for the colorblind.",
-        "Change color scheme again (Plasma)."
+        "Change color scheme again (Plasma).",
+        "Retain dash, but do not fill, when own L8 reso present.",
+        "Do not exclude own non-L8 reso.",
       ],
-    }
+    },
   ];
 
   // use own namespace for plugin
@@ -92,9 +94,9 @@ function wrapper(plugin_info) {
     // LEVEL_TO_RADIUS[7] === 10; 2pi ~= 6.3
     const c = 63 * scale;
     const unit = c / dashes / 3;
-    const da = self.dashArrayMemo[dashes] = `${unit}, ${unit * 2}`;
+    const da = (self.dashArrayMemo[dashes] = `${unit}, ${unit * 2}`);
     return da;
-  }
+  };
 
   self.checkDetail = function (data, details) {
     // console.log("candidate " + data.portal.options.guid)
@@ -104,21 +106,22 @@ function wrapper(plugin_info) {
     }
     const reso = details.resonators;
 
-    if (reso.some((x) => x.owner === PLAYER.nickname)) return;
-    const reso_sum = reso.filter((x) => x.level === 8).length;
+    const reso8 = reso.filter((x) => x.level === 8);
+    const reso_sum = reso8.length;
+    const has_own = reso8.some((x) => x.owner === PLAYER.nickname);
     const reso_needed = 8 - reso_sum;
     // console.log("reso_needed " + reso_needed)
 
-    const newStyle = L.extend(
-      {},
-      self.styles.common,
-      self.styles["sev_miss_" + reso_needed],
-      {dashArray: self.makeDashArray(window.portalMarkerScale(), reso_sum)},
-    );
+    if (reso_needed == 0 || reso_needed > 3) return;
 
-    if (newStyle.fillColor) {
-      data.portal.setStyle(newStyle);
-    }
+    data.portal.setStyle(
+      L.extend(
+        {},
+        self.styles.common,
+        has_own ? {} : self.styles["sev_miss_" + reso_needed],
+        { dashArray: self.makeDashArray(window.portalMarkerScale(), reso_sum) },
+      ),
+    );
   };
 
   self.highlight = function (data) {
