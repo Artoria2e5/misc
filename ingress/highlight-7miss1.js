@@ -55,7 +55,7 @@ function wrapper(plugin_info) {
       changes: [
         "Add dashed stroke for the colorblind.",
         "Change color scheme again (Plasma).",
-        "Retain dash, but do not fill, when own L8 reso present.",
+        "Fill with grey and dash when own L8 reso present.",
         "Do not exclude own non-L8 reso.",
       ],
     },
@@ -71,15 +71,10 @@ function wrapper(plugin_info) {
       fillOpacity: 0.85,
       linecap: "butt",
     },
-    sev_miss_1: {
-      fillColor: "#72008D",
-    },
-    sev_miss_2: {
-      fillColor: "#D24E71",
-    },
-    sev_miss_3: {
-      fillColor: "#ECC000",
-    },
+    sev_miss_1: { fillColor: "#72008D" },
+    sev_miss_2: { fillColor: "#D24E71" },
+    sev_miss_3: { fillColor: "#ECC000" },
+    hasOwn: { fillColor: "#808080" },
   };
 
   self.dashArrayMemo = {
@@ -118,7 +113,7 @@ function wrapper(plugin_info) {
       L.extend(
         {},
         self.styles.common,
-        has_own ? {} : self.styles["sev_miss_" + reso_needed],
+        has_own ? self.styles.hasOwn : self.styles["sev_miss_" + reso_needed],
         { dashArray: self.makeDashArray(window.portalMarkerScale(), reso_sum) },
       ),
     );
