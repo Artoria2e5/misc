@@ -2,7 +2,7 @@
 // @author         Artoria2e5
 // @name           Highlight almost-8 portals
 // @category       Highlighter
-// @version        0.0.3
+// @version        0.0.4
 // @id             highlight-7miss1@Artoria2e5
 // @description    Find portals that are 1/2/3 resonators to level 8. Makes its own requests; use with caution.
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
@@ -29,7 +29,7 @@ function wrapper(plugin_info) {
   */
   //END PLUGIN AUTHORS NOTE
 
-  var changelog = [
+  const changelog = [
     {
       version: "0.0.1",
       changes: ["New"],
@@ -50,16 +50,23 @@ function wrapper(plugin_info) {
         "Remove debug prints.",
       ],
     },
+    {
+      version: "0.0.4",
+      changes: [
+        "Add dashed stroke for the colorblind.",
+      ],
+    }
   ];
 
   // use own namespace for plugin
-  var self = {};
+  const self = {};
   window.plugin.highlightSevenMissOne = self;
 
   // chosen by python-colorspace `darken(sequential_hcl("SunsetDark").colors(5), amount=0.3)`
   self.styles = {
     common: {
       fillOpacity: 0.8,
+      linecap: "butt",
     },
     sev_miss_1: {
       fillColor: "#630050",
@@ -72,23 +79,40 @@ function wrapper(plugin_info) {
     },
   };
 
+  self.dashArrayMemo = {
+    scale: -1,
+  };
+
+  self.makeDashArray = function (scale, dashes) {
+    if (self.dashArrayMemo.scale === scale && dashes in self.dashArrayMemo) {
+      return self.dashArrayMemo[dashes];
+    }
+    self.dashArrayMemo.scale = scale;
+    // LEVEL_TO_RADIUS[7] === 10; 2pi ~= 6.3
+    const c = 63 * scale;
+    const unit = c / dashes / 3;
+    const da = self.dashArrayMemo[dashes] = `${unit}, ${unit * 2}`;
+    return da;
+  }
+
   self.checkDetail = function (data, details) {
     // console.log("candidate " + data.portal.options.guid)
     if (details === undefined) {
       // console.log("no details ")
       return;
     }
-    var reso = details.resonators;
+    const reso = details.resonators;
 
     if (reso.some((x) => x.owner === PLAYER.nickname)) return;
-    var reso_sum = reso.filter((x) => x.level === 8).length;
-    var reso_needed = 8 - reso_sum;
+    const reso_sum = reso.filter((x) => x.level === 8).length;
+    const reso_needed = 8 - reso_sum;
     // console.log("reso_needed " + reso_needed)
 
-    var newStyle = L.extend(
+    const newStyle = L.extend(
       {},
       self.styles.common,
       self.styles["sev_miss_" + reso_needed],
+      {dashArray: self.makeDashArray(window.portalMarkerScale(), reso_sum)},
     );
 
     if (newStyle.fillColor) {
@@ -97,8 +121,8 @@ function wrapper(plugin_info) {
   };
 
   self.highlight = function (data) {
-    var portal_data = data.portal.options.data;
-    var portal_level = portal_data.level;
+    const portal_data = data.portal.options.data;
+    const portal_level = portal_data.level;
     if (
       !(
         portal_level === 7 ||
@@ -107,11 +131,11 @@ function wrapper(plugin_info) {
     )
       return;
     if (portal_data.team === "M") return;
-    var guid = data.portal.options.guid;
+    const guid = data.portal.options.guid;
 
     // Accept old data (false). Only request when completely missing (undefined).
     if (window.portalDetail.isFresh(guid) === undefined) {
-      var req_promise = window.portalDetail.request(guid);
+      const req_promise = window.portalDetail.request(guid);
       req_promise.then(function (_) {
         self.checkDetail(data, window.portalDetail.get(guid));
       });
@@ -131,9 +155,10 @@ function wrapper(plugin_info) {
   if (window.iitcLoaded && typeof setup === "function") setup();
 } // wrapper end
 
+
 // inject code into site context
-var script = document.createElement('script');
-var info = {};
+const script = document.createElement('script');
+const info = {};
 if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description };
 script.appendChild(document.createTextNode('(' + wrapper + ')(' + JSON.stringify(info) + ');'));
 (document.body || document.head || document.documentElement).appendChild(script);
