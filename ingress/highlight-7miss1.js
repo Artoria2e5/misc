@@ -46,7 +46,7 @@ function wrapper(plugin_info) {
         "Exclude self deployed portals.",
         "Exclude Machina from requests.",
         "Include portals with level equal to resCount.",
-        "Change color scheme.",
+        "Change color scheme (SunsetDark).",
         "Remove debug prints.",
       ],
     },
@@ -54,6 +54,7 @@ function wrapper(plugin_info) {
       version: "0.0.4",
       changes: [
         "Add dashed stroke for the colorblind.",
+        "Change color scheme again (Plasma)."
       ],
     }
   ];
@@ -62,20 +63,20 @@ function wrapper(plugin_info) {
   const self = {};
   window.plugin.highlightSevenMissOne = self;
 
-  // chosen by python-colorspace `darken(sequential_hcl("SunsetDark").colors(5), amount=0.3)`
+  // chosen by python-colorspace `sequential_hcl("Plasma").colors(7)[1::2]`
   self.styles = {
     common: {
-      fillOpacity: 0.8,
+      fillOpacity: 0.85,
       linecap: "butt",
     },
     sev_miss_1: {
-      fillColor: "#630050",
+      fillColor: "#72008D",
     },
     sev_miss_2: {
-      fillColor: "#C01F3C",
+      fillColor: "#D24E71",
     },
     sev_miss_3: {
-      fillColor: "#BD6530",
+      fillColor: "#ECC000",
     },
   };
 
