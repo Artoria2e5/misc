@@ -1,8 +1,8 @@
 // ==UserScript==
-// @author         Artoria2e5
 // @name           Highlight almost-8 portals
+// @author         Artoria2e5
 // @category       Highlighter
-// @version        0.0.4
+// @version        0.0.5
 // @id             highlight-7miss1@Artoria2e5
 // @description    Find portals that are 1/2/3 resonators to level 8. Makes its own requests; use with caution.
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
@@ -59,6 +59,12 @@ function wrapper(plugin_info) {
         "Do not exclude own non-L8 reso.",
       ],
     },
+    {
+      version: "0.0.5",
+      changes: [
+        "Change color scheme again to maximize chroma.", 
+      ],
+    }
   ];
 
   // use own namespace for plugin
@@ -71,8 +77,11 @@ function wrapper(plugin_info) {
       fillOpacity: 0.85,
       linecap: "butt",
     },
-    sev_miss_1: { fillColor: "#72008D" },
-    sev_miss_2: { fillColor: "#D24E71" },
+    // Modified by: setting oklch L to 45, then maximize chroma
+    // chroma-maximization code: https://gist.github.com/Artoria2e5/9c7ba0bcda480b5bc2ae0b0ffe0bfb91
+    sev_miss_1: { fillColor: "#8400a1" },
+    // chroma-maximized too
+    sev_miss_2: { fillColor: "#ef0069" },
     sev_miss_3: { fillColor: "#ECC000" },
     hasOwn: { fillColor: "#808080" },
   };
