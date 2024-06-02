@@ -1,3 +1,4 @@
+// vim: ts=2:sw=2:noet
 // ==UserScript==
 // @name           Highlight almost-8 portals
 // @author         Artoria2e5
