@@ -1,4 +1,4 @@
-// vim: ts=2:sw=2:noet
+// vim: ts=2:sw=2:noet:sts=0
 // ==UserScript==
 // @name           Highlight almost-8 portals
 // @author         Artoria2e5
@@ -11,6 +11,7 @@
 // @match          https://intel-x.ingress.com/*
 // @downloadURL    https://github.com/Artoria2e5/misc/raw/master/ingress/highlight-7miss1.js
 // @updateURL      https://github.com/Artoria2e5/misc/raw/master/ingress/highlight-7miss1.js
+// @icon	         https://github.com/Artoria2e5/misc/raw/master/ingress/highlight-7miss1.svg
 // @grant          none
 // ==/UserScript==
 
