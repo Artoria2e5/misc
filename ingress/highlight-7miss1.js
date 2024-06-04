@@ -3,15 +3,16 @@
 // @name           Highlight almost-8 portals
 // @author         Artoria2e5
 // @category       Highlighter
-// @version        0.0.5
+// @version        0.1.0
 // @id             highlight-7miss1@Artoria2e5
 // @description    Find portals that are 1/2/3 resonators to level 8. Makes its own requests; use with caution.
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @match          https://intel.ingress.com/*
 // @match          https://intel-x.ingress.com/*
-// @downloadURL    https://github.com/Artoria2e5/misc/raw/master/ingress/highlight-7miss1.js
-// @updateURL      https://github.com/Artoria2e5/misc/raw/master/ingress/highlight-7miss1.js
-// @icon	         https://github.com/Artoria2e5/misc/raw/master/ingress/highlight-7miss1.svg
+// @downloadURL    https://cdn.jsdelivr.net/gh/Artoria2e5/misc@master/ingress/highlight-7miss1.js
+// @updateURL      https://cdn.jsdelivr.net/gh/Artoria2e5/misc@master/ingress/highlight-7miss1.js
+// @icon           https://cdn.jsdelivr.net/gh/Artoria2e5/misc@master/ingress/highlight-7miss1.svg
+// @homepageURL    https://github.com/Artoria2e5/misc/issues
 // @grant          none
 // ==/UserScript==
 
@@ -65,6 +66,14 @@ function wrapper(plugin_info) {
 				"Generate correct dash count for L5, L6."
 			],
 		},
+		{
+			version: "0.1.0",
+			changes: [
+				"Add icon and other metadata.",
+				"Migrate to jsDelivr URLs in metadata.",
+				"Do not use const on global scope -- script and info are supposed to be shadowed. Might fix iOS!",
+			],
+		}
 	];
 
 	// use own namespace for plugin
@@ -159,8 +168,8 @@ function wrapper(plugin_info) {
 } // wrapper end
 
 // inject code into site context
-const script = document.createElement('script');
-const info = {};
+var script = document.createElement('script');
+var info = {};
 if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description };
 script.appendChild(document.createTextNode('(' + wrapper + ')(' + JSON.stringify(info) + ');'));
 (document.body || document.head || document.documentElement).appendChild(script);
