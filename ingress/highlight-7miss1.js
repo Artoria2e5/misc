@@ -3,7 +3,7 @@
 // @name           Highlight almost-8 portals
 // @author         Artoria2e5
 // @category       Highlighter
-// @version        0.1.1
+// @version        0.1.2
 // @id             highlight-7miss1@Artoria2e5
 // @description    Find portals that are 1/2/3 resonators to level 8. Makes its own requests; use with caution.
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
@@ -80,6 +80,13 @@ function wrapper(plugin_info) {
 				"Make lineCap actually work (spelling, sigh). No more rounded ends.",
 				"Properly clear dashArrayMemo.",
 			],
+		},
+		{
+			version: "0.1.2",
+			changes: [
+				"Make a request queue that fires every 20 ms. Seems to kill the 502s, mostly.",
+				"Call .bringToFront() on the portal after highlighting.",
+			]
 		}
 	];
 
@@ -123,7 +130,7 @@ function wrapper(plugin_info) {
 		return da;
 	};
 
-	self.checkDetail = (data, details) => {
+	self.checkDetail = (portal, details) => {
 		if (details === undefined) {
 			return;
 		}
@@ -134,9 +141,9 @@ function wrapper(plugin_info) {
 		const has_own = reso8.some((x) => x.owner === PLAYER.nickname);
 		const reso_needed = 8 - reso_sum;
 
-		if (reso_needed == 0 || reso_needed > 3) return;
+		if (reso_needed > 3) return;
 
-		data.portal.setStyle(
+		portal.setStyle(
 			L.extend(
 				{},
 				self.styles.common,
@@ -144,24 +151,53 @@ function wrapper(plugin_info) {
 				{ dashArray: self.makeDashArray(window.portalMarkerScale(), reso_sum, details.level) }
 			)
 		);
+
+		portal.bringToFront();
 	};
 
+	self.requestInflight = {};
+	self.requestQueue = [];
+
+	setInterval(() => {
+		if (self.requestQueue.length === 0) return;
+		const [guid, cb] = self.requestQueue.shift();
+		window.portalDetail
+			.request(guid)
+			.then((details) => {
+				delete self.requestInflight[guid];
+				cb(details);
+			})
+			.catch(() => {
+				delete self.requestInflight[guid];
+				self.requestQueue.push([guid, cb]);
+			});
+	}, 20);
+
+	self.requestDetail = (guid, cb) => {
+		if (guid in self.requestInflight) {
+			return;
+		}
+		self.requestInflight[guid] = true;
+		self.requestQueue.push([guid, cb]);
+	};
+	
 	self.highlight = (data) => {
 		const portal_data = data.portal.options.data;
 		const portal_level = portal_data.level;
+		if (portal_data.team === "M") return;
+		if (portal_level === 8) return;
 		if (!(portal_level === 7 || (portal_level >= 5 && portal_level === portal_data.resCount)))
 			return;
-		if (portal_data.team === "M") return;
+
 		const guid = data.portal.options.guid;
 
 		// Accept old data (false). Only request when completely missing (undefined).
 		if (window.portalDetail.isFresh(guid) === undefined) {
-			const req_promise = window.portalDetail.request(guid);
-			req_promise.then(function (_) {
-				self.checkDetail(data, window.portalDetail.get(guid));
+			self.requestDetail(guid, (details) => {
+				self.checkDetail(data.portal, details);
 			});
 		}
-		self.checkDetail(data, window.portalDetail.get(guid));
+		self.checkDetail(data.portal, window.portalDetail.get(guid));
 	};
 
 	const setup = self.setup = () => {
