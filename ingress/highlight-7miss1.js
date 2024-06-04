@@ -3,7 +3,7 @@
 // @name           Highlight almost-8 portals
 // @author         Artoria2e5
 // @category       Highlighter
-// @version        0.1.0
+// @version        0.1.1
 // @id             highlight-7miss1@Artoria2e5
 // @description    Find portals that are 1/2/3 resonators to level 8. Makes its own requests; use with caution.
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
@@ -73,6 +73,10 @@ function wrapper(plugin_info) {
 				"Migrate to jsDelivr URLs in metadata.",
 				"Do not use const on global scope -- script and info are supposed to be shadowed. Might fix iOS!",
 			],
+		},
+		{
+			version: "0.1.1",
+			changes: ["Make lineCap actually work (spelling, sigh). No more rounded ends."],
 		}
 	];
 
@@ -84,7 +88,7 @@ function wrapper(plugin_info) {
 	self.styles = {
 		common: {
 			fillOpacity: 0.85,
-			linecap: "butt",
+			lineCap: "butt",
 		},
 		// Modified by: setting oklch L to 45, then maximize chroma
 		// chroma-maximization code: https://gist.github.com/Artoria2e5/9c7ba0bcda480b5bc2ae0b0ffe0bfb91
@@ -110,7 +114,7 @@ function wrapper(plugin_info) {
 		// 2pi ~= 6.3
 		const circ = LEVEL_TO_RADIUS[level] * 6.3 * scale;
 		const unit = circ / dashes / 3;
-		const da = (self.dashArrayMemo[cacheKey] = `${unit}, ${unit * 2}`);
+		const da = (self.dashArrayMemo[cacheKey] = `${unit * 2}, ${unit}`);
 		return da;
 	};
 
@@ -155,7 +159,7 @@ function wrapper(plugin_info) {
 		self.checkDetail(data, window.portalDetail.get(guid));
 	};
 
-	setup = self.setup = () => {
+	const setup = self.setup = () => {
 		window.addPortalHighlighter("Almost-8 Portals", self.highlight);
 	};
 
