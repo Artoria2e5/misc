@@ -76,7 +76,10 @@ function wrapper(plugin_info) {
 		},
 		{
 			version: "0.1.1",
-			changes: ["Make lineCap actually work (spelling, sigh). No more rounded ends."],
+			changes: [
+				"Make lineCap actually work (spelling, sigh). No more rounded ends.",
+				"Properly clear dashArrayMemo.",
+			],
 		}
 	];
 
@@ -105,11 +108,13 @@ function wrapper(plugin_info) {
 
 	self.makeDashArray = (scale, dashes, level = 7) => {
 		const cacheKey = level < 7 ? -dashes : dashes;
-		if (self.dashArrayMemo.scale === scale && cacheKey in self.dashArrayMemo) {
-			return self.dashArrayMemo[cacheKey];
+		if (self.dashArrayMemo.scale === scale) {
+			if (cacheKey in self.dashArrayMemo)
+				return self.dashArrayMemo[cacheKey];
+		} else {
+			self.dashArrayMemo = { scale };
 		}
 
-		self.dashArrayMemo.scale = scale;
 		const LEVEL_TO_RADIUS = [7, 7, 7, 7, 8, 8, 9, 10, 11];
 		// 2pi ~= 6.3
 		const circ = LEVEL_TO_RADIUS[level] * 6.3 * scale;
