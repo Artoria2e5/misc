@@ -162,7 +162,8 @@ function wrapper(plugin_info) {
 
 	setInterval(() => {
 		if (self.requestQueue.length === 0) return;
-		const [guid, cb] = self.requestQueue.shift();
+		const guid = self.requestQueue.shift();
+		const cb = self.requestInflight[guid];
 		window.portalDetail
 			.request(guid)
 			.then((details) => {
@@ -170,8 +171,7 @@ function wrapper(plugin_info) {
 				cb(details);
 			})
 			.catch(() => {
-				delete self.requestInflight[guid];
-				self.requestQueue.push([guid, cb]);
+				self.requestQueue.push(guid);
 			});
 	}, 20);
 
@@ -179,8 +179,8 @@ function wrapper(plugin_info) {
 		if (guid in self.requestInflight) {
 			return;
 		}
-		self.requestInflight[guid] = true;
-		self.requestQueue.push([guid, cb]);
+		self.requestInflight[guid] = cb;
+		self.requestQueue.push(guid);
 	};
 	
 	self.highlight = (data) => {
