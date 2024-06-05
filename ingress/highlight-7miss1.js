@@ -184,14 +184,11 @@ function wrapper(plugin_info) {
 	};
 	
 	self.highlight = (data) => {
-		const portal_data = data.portal.options.data;
-		const portal_level = portal_data.level;
-		if (portal_data.team === "M") return;
-		if (portal_level === 8) return;
-		if (!(portal_level === 7 || (portal_level >= 5 && portal_level === portal_data.resCount)))
+		const { data: { team, level, resCount }, guid } = data.portal.options;
+		if (team === "M") return;
+		if (level === 8) return;
+		if (!(level === 7 || (level >= 5 && level === resCount)))
 			return;
-
-		const guid = data.portal.options.guid;
 
 		// Accept old data (false). Only request when completely missing (undefined).
 		if (window.portalDetail.isFresh(guid) === undefined) {
