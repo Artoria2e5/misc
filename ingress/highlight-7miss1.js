@@ -12,6 +12,7 @@
 // @downloadURL    https://cdn.jsdelivr.net/gh/Artoria2e5/misc@master/ingress/highlight-7miss1.js
 // @updateURL      https://cdn.jsdelivr.net/gh/Artoria2e5/misc@master/ingress/highlight-7miss1.js
 // @icon           https://cdn.jsdelivr.net/gh/Artoria2e5/misc@master/ingress/highlight-7miss1.svg
+// @screenshot     https://cdn.jsdelivr.net/gh/Artoria2e5/misc@master/ingress/highlight-7miss1.png
 // @homepageURL    https://github.com/Artoria2e5/misc/issues
 // @grant          none
 // ==/UserScript==
@@ -86,6 +87,7 @@ function wrapper(plugin_info) {
 			changes: [
 				"Make a request queue that fires every 20 ms. Seems to kill the 502s, mostly.",
 				"Call .bringToFront() on the portal after highlighting.",
+				"Add 13387-byte screenshot."
 			]
 		}
 	];
