@@ -107,7 +107,6 @@ set +x
 # https://serverfault.com/a/1046246
 mkdir -p /etc/nftables/idempotent
 # Generate nftables.
-nft flush ruleset
 {
   cat <<EOF
 add table ip bl
@@ -118,6 +117,8 @@ EOF
     printf 'add element ip bl blocklist { %s }\n' "$line"
   done </etc/ip-blocklist.conf
   cat <<EOF
+destroy chain ip bl input
+destroy chain ip bl forward
 add chain ip bl input { type filter hook input priority 0; }
 add chain ip bl forward { type filter hook forward priority 0; }
 add rule ip bl input ip saddr @blocklist drop
@@ -135,6 +136,8 @@ EOF
     printf 'add element ip6 bl6 blocklist6 { %s }\n' "$line"
   done </etc/ip-blocklist.conf.6
   cat <<EOF
+destroy chain ip6 bl6 input
+destroy chain ip6 bl6 forward 
 add chain ip6 bl6 input { type filter hook input priority 0; }
 add chain ip6 bl6 forward { type filter hook forward priority 0; }
 add rule ip6 bl6 input ip6 saddr @blocklist6 drop
