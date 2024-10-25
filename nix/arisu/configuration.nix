@@ -10,8 +10,6 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    <nixos-hardware/common/cpu/amd/pstate.nix>
-    <nixos-hardware/common/pc/ssd>
     ./hardware-configuration.nix
   ];
 
@@ -61,6 +59,13 @@
   };
   hardware.pulseaudio.enable = false;
 
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (subject.isInGroup("wheel"))
+        return polkit.Result.YES;
+    });
+  '';
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -68,21 +73,68 @@
   users.users.a2 = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      firefox
-      tree
-      samba
-    ];
+    packages =
+      with pkgs;
+      [
+        firefox
+        tree
+        samba
+        vscode
+        virtualbox
+        git
+        htop
+        fontforge
+        gimp
+        inkscape
+        oxipng
+        pngquant
+        python3
+        qq
+      ]
+      ++ (with pkgs.python311Packages; [
+        numpy
+        matplotlib
+        pillow
+        cycler
+        kiwisolver
+        packaging
+        pip
+        pyparsing
+        python-dateutil
+      ]);
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    openssh
-    sing-box
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      vim
+      wget
+      openssh
+      sing-box
+      config.nur.repos.cryolitia.rime-project-trans
+      config.nur.repos.linyinfeng.rimePackages.rime-ice
+      busybox
+      audacious
+      btop
+      compsize
+    ]
+    ++ (with pkgs;
+    [
+      gcc
+      gnumake
+      libarchive
+      bash
+      zstd
+      xz
+    ]);
+  # ++ lib.attrsets.attrValues (
+  #    builtins.removeAttrs pkgs.pkgsx86_64_v3-core [
+  #      "recurseForDerivations"
+  #      "_description"
+  #    ]
+  #  );
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -102,6 +154,17 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
+  services.avahi = {
+    nssmdns4 = true;
+    enable = true;
+    ipv4 = true;
+    ipv6 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -109,10 +172,27 @@
   # system.copySystemConfiguration = true;
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
   nix.settings = {
     substituters = [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=30"
+      "https://mirrors.ustc.edu.cn/nix-channels/store?priority=30"
+      "https://chaotic-nyx.cachix.org"
+    ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    system-features = lib.mkForce [
+      "gccarch-x86-64-v3"
+      "benchmark"
+      "big-parallel"
+      "kvm"
+      "nixos-test"
     ];
   };
   nix.gc = {
@@ -124,6 +204,7 @@
   nix.extraOptions = ''
     min-free = ${toString (1024 * 1024 * 1024)}
     max-free = ${toString (2048 * 1024 * 1024)}
+    max-substitution-jobs = 32
   '';
 
   # VIA USB/SATA TRIM
@@ -134,7 +215,6 @@
   hardware.enableAllFirmware = true;
 
   fileSystems."/".options = [
-    "nodiscard"
     "compress=zstd"
   ];
   swapDevices = [ { device = "/dev/disk/by-uuid/7398edc0-ae0c-42d9-a078-2ac3a7b5acae"; } ];
@@ -143,12 +223,20 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  boot.kernelPackages = pkgs.linuxPackages_testing;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+    "net.ipv4.tcp_ecn" = 2;
+    "net.ipv4.tcp_fastopen" = 3;
+    "net.ipv4.tcp_notsent_lowat" = 131072;
+    "net.ipv4.tcp_mtu_probing" = 1;
   };
   boot.kernelModules = [
     "nct6775"
     "zenpower"
+    "virtualbox"
   ];
   boot.blacklistedKernelModules = [ "k10temp" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.zenpower ];
