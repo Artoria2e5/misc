@@ -93,4 +93,27 @@ systemctl restart nginx
 chronyc dump
 /root/chrony-graph/run1/run-cron
 
+IPTABLES='*raw
+:PREROUTING ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A PREROUTING -p udp -m udp --dport 123 -j NOTRACK
+-A PREROUTING -p udp -m udp --dport 11123 -j NOTRACK
+-A PREROUTING -p udp -m udp --dport 123 -m hashlimit --hashlimit-above 8/sec --hashlimit-burst 16 --hashlimit-mode srcip --hashlimit-name ntp1 --hashlimit-htable-max 4096 --hashlimit-htable-expire 8000 --hashlimit-srcmask @srcmark@ -j DROP
+-A PREROUTING -p udp -m udp --dport 123 -m statistic --mode random --probability 0.06250000000 -j ACCEPT
+-A PREROUTING -p udp -m udp --dport 123 -m hashlimit --hashlimit-above 8/min --hashlimit-burst 8 --hashlimit-mode srcip --hashlimit-name ntp --hashlimit-htable-max 131072 --hashlimit-htable-expire 64000 --hashlimit-srcmask @srcmark@ -j DROP
+-A OUTPUT -p udp -m udp --sport 123 -j NOTRACK
+-A OUTPUT -p udp -m udp --sport 11123 -j NOTRACK
+COMMIT'
+IPTABLES4=${IPTABLES/@srcmark@/28}
+IPTABLES6=${IPTABLES/@srcmark@/60}
+
+apt install -y ufw
+ufw allow ssh
+ufw allow http
+ufw allow https
+ufw allow 123/udp
+echo "$IPTABLES4" >> /etc/ufw/before.rules
+echo "$IPTABLES6" >> /etc/ufw/before6.rules
+ufw --force enable
+
 ip addr show eth0
