@@ -104,8 +104,8 @@ IPTABLES='*raw
 -A OUTPUT -p udp -m udp --sport 123 -j NOTRACK
 -A OUTPUT -p udp -m udp --sport 11123 -j NOTRACK
 COMMIT'
-IPTABLES4=${IPTABLES/@srcmark@/28}
-IPTABLES6=${IPTABLES/@srcmark@/60}
+IPTABLES4=${IPTABLES//@srcmark@/28}
+IPTABLES6=${IPTABLES//@srcmark@/60}
 
 apt install -y ufw
 ufw allow ssh
