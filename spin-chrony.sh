@@ -79,7 +79,32 @@ cp -a runX run1
 cp -a bin/copy-to-website{.example,}
 sed -e 's@~/my.www.dir/html/graphs/@/var/www/html@g' -i bin/copy-to-website
 cp -a titles{.example,}
-echo '0 * * * * /root/chrony-graph/run1/run-cron' > /var/spool/cron/crontabs/root
+cat >ipt <<EOF
+#!/bin/bash
+
+# Ensure directory exists
+mkdir -p /root/chrony-graph/run1
+
+# Log to the specified file using exec
+exec >> /root/chrony-graph/run1/notes 2>&1
+
+# Timestamp separator
+echo -e "\n== $(date -Iseconds) =="
+
+# IPv4 Raw Table Statistics (with zeroing)
+echo "=== IPv4 RAW TABLE ==="
+iptables -t raw -Z && iptables -t raw -v -n -L
+
+# IPv6 Raw Table Statistics (with zeroing)
+echo -e "\n=== IPv6 RAW TABLE ==="
+ip6tables -t raw -Z && ip6tables -t raw -v -n -L
+EOF
+chmod +x ipt
+cat > /var/spool/cron/crontabs/root <<EOF
+0 * * * * /root/chrony-graph/run1/run-cron
+0 * * * * /root/chrony-graph/ipt
+0 0 * * 0 : > /root/chrony-graph/run1/notes
+EOF
 popd
 
 apt install -y bc gnuplot-nox libdatetime-perl rsync nginx
