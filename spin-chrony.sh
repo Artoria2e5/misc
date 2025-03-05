@@ -107,7 +107,7 @@ cat > /var/spool/cron/crontabs/root <<EOF
 EOF
 popd
 
-apt install -y bc gnuplot-nox libdatetime-perl rsync nginx
+apt install -y bc gnuplot-nox libdatetime-perl rsync nginx timelimit
 sed -e 's@# gzip@gzip@g' \
     -e 's@gzip_types@gzip_types image/svg+xml@g' \
     -e 's@gzip on;@gzip on;\n    gzip_static on;@g' \
