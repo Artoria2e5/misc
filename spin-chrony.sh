@@ -16,6 +16,7 @@ log measurements statistics tracking
 
 hwtimestamp *
 refclock PHC /dev/ptp0 poll 3 dpoll -2 stratum 2
+sched_priority 10
 EOF
 
 cat <<EOF >> /etc/chrony/sources.d/europe.sources
@@ -142,3 +143,4 @@ echo "$IPTABLES6" >> /etc/ufw/before6.rules
 ufw --force enable
 
 ip addr show eth0
+echo "are you a tryhard? consider: using rsntp, adding 'preempt=lazy threadirqs' to kernal cmdline."
