@@ -99,7 +99,7 @@ TEMP_FILE=$(mktemp)
 
 if [ -f "/root/chrony-graph/run1/notes" ]; then
     # Find the line number where the first timestamp appears
-    FIRST_TIMESTAMP_LINE=$(grep -n "^== [0-9]" /root/chrony-graph/run1/notes | head -1 | cut -d: -f1)
+    FIRST_TIMESTAMP_LINE=$(grep -m1 -n "^== [0-9]" /root/chrony-graph/run1/notes | head -1 | cut -d: -f1)
     
     if [ -n "$FIRST_TIMESTAMP_LINE" ]; then
         head -n $((FIRST_TIMESTAMP_LINE - 1)) /root/chrony-graph/run1/notes > "$TEMP_FILE"
