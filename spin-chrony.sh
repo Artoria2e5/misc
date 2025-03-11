@@ -83,22 +83,37 @@ cp -a titles{.example,}
 cat >ipt <<EOF
 #!/bin/bash
 
-# Ensure directory exists
 mkdir -p /root/chrony-graph/run1
 
-# Log to the specified file using exec
-exec >> /root/chrony-graph/run1/notes 2>&1
+NEW_CONTENT="
+== $(date -Iseconds) ==
 
-# Timestamp separator
-echo -e "\n== $(date -Iseconds) =="
+=== IPv4 RAW TABLE ===
+$(iptables -t raw -Z && iptables -t raw -v -n -L)
 
-# IPv4 Raw Table Statistics (with zeroing)
-echo "=== IPv4 RAW TABLE ==="
-iptables -t raw -Z && iptables -t raw -v -n -L
+=== IPv6 RAW TABLE ===
+$(ip6tables -t raw -Z && ip6tables -t raw -v -n -L)"
 
-# IPv6 Raw Table Statistics (with zeroing)
-echo -e "\n=== IPv6 RAW TABLE ==="
-ip6tables -t raw -Z && ip6tables -t raw -v -n -L
+# Create a temporary file
+TEMP_FILE=$(mktemp)
+
+if [ -f "/root/chrony-graph/run1/notes" ]; then
+    # Find the line number where the first timestamp appears
+    FIRST_TIMESTAMP_LINE=$(grep -n "^== [0-9]" /root/chrony-graph/run1/notes | head -1 | cut -d: -f1)
+    
+    if [ -n "$FIRST_TIMESTAMP_LINE" ]; then
+        head -n $((FIRST_TIMESTAMP_LINE - 1)) /root/chrony-graph/run1/notes > "$TEMP_FILE"
+        echo "$NEW_CONTENT" >> "$TEMP_FILE"
+        tail -n +${FIRST_TIMESTAMP_LINE} /root/chrony-graph/run1/notes >> "$TEMP_FILE"
+    else
+        cat /root/chrony-graph/run1/notes > "$TEMP_FILE"
+        echo "$NEW_CONTENT" >> "$TEMP_FILE"
+    fi
+else
+    echo "$NEW_CONTENT" > "$TEMP_FILE"
+fi
+
+mv "$TEMP_FILE" /root/chrony-graph/run1/notes
 EOF
 chmod +x ipt
 cat > /var/spool/cron/crontabs/root <<EOF
