@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script for spinning up chrony on Debian and Ubuntu VMs
 # how are we doing? https://www.ntppool.org/a/a2e5
-apt install -y chrony
+apt install -y chrony unzip
 
 cat <<EOF > /etc/modules-load.d/ptp.conf
 ptp_kvm
@@ -80,7 +80,7 @@ cp -a runX run1
 cp -a bin/copy-to-website{.example,}
 sed -e 's@~/my.www.dir/html/graphs/@/var/www/html@g' -i bin/copy-to-website
 cp -a titles{.example,}
-cat >ipt <<EOF
+cat >ipt <<'EOF'
 #!/bin/bash
 
 mkdir -p /root/chrony-graph/run1
