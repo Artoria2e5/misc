@@ -37,8 +37,8 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -54,10 +54,9 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    # jack.enable = true;
+    # If you want to use JACK applications, uncomment thisin
   };
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
@@ -113,8 +112,8 @@
       wget
       openssh
       sing-box
-      config.nur.repos.cryolitia.rime-project-trans
-      config.nur.repos.linyinfeng.rimePackages.rime-ice
+      nur.repos.cryolitia.rime-project-trans
+      nur.repos.linyinfeng.rimePackages.rime-ice
       busybox
       audacious
       btop
@@ -214,16 +213,11 @@
 
   hardware.enableAllFirmware = true;
 
-  fileSystems."/".options = [
-    "compress=zstd"
-  ];
-  swapDevices = [ { device = "/dev/disk/by-uuid/7398edc0-ae0c-42d9-a078-2ac3a7b5acae"; } ];
-
   zramSwap.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
     "net.core.default_qdisc" = "fq";
@@ -240,10 +234,16 @@
   ];
   boot.blacklistedKernelModules = [ "k10temp" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.zenpower ];
-  # boot.kernelParams = [ "" ];
+  boot.kernelParams = [
+    "zswap.enabled=1"
+    "zswap.compressor=zstd"
+    "zswap.max_pool_percent=40"
+    "zswap.shrinker_enabled=1"
+    "damon_reclaim.enabled=1" ];
 
   i18n.inputMethod = {
-    enabled = "ibus";
+    type = "ibus";
+    enable = true;
     ibus.engines = with pkgs.ibus-engines; [ rime ];
   };
 

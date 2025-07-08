@@ -28,6 +28,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/143f9758-d23a-41bf-94d1-f98e38cfb290";
     fsType = "btrfs";
+    options = [ "compress=zstd" ];
   };
 
   fileSystems."/boot" = {
@@ -38,6 +39,16 @@
       "dmask=0077"
     ];
   };
+
+  swapDevices = [
+    {
+      device = "/dev/disk/by-uuid/7398edc0-ae0c-42d9-a078-2ac3a7b5acae";
+      options = [ "discard" ];
+    }
+  ];
+
+  # zramSwap.writebackDevice = "/dev/disk/by-uuid/7398edc0-ae0c-42d9-a078-2ac3a7b5acae";
+  # zramSwap.memoryPercent = 75;
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
