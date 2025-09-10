@@ -72,35 +72,16 @@
   users.users.a2 = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages =
-      with pkgs;
+    packages = with pkgs;
       [
+        audacious
         firefox
-        tree
-        samba
-        vscode
         virtualbox
-        git
-        htop
-        fontforge
         gimp
-        inkscape
-        oxipng
-        pngquant
-        python3
         qq
-      ]
-      ++ (with pkgs.python311Packages; [
-        numpy
-        matplotlib
-        pillow
-        cycler
-        kiwisolver
-        packaging
-        pip
-        pyparsing
-        python-dateutil
-      ]);
+        fontforge
+        inkscape
+      ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -115,19 +96,41 @@
       nur.repos.cryolitia.rime-project-trans
       nur.repos.linyinfeng.rimePackages.rime-ice
       busybox
-      audacious
       btop
       compsize
+      gparted
+      ntfs3g
+      apfsprogs
+      tree
+      samba
+      vscode
+      git
+      htop
+      oxipng
+      pngquant
+      python3
+      apfs-fuse
     ]
-    ++ (with pkgs;
-    [
+    ++ (with pkgs; [
       gcc
       gnumake
       libarchive
       bash
       zstd
       xz
+    ])
+    ++ (with pkgs.python311Packages; [
+      numpy
+      matplotlib
+      pillow
+      cycler
+      kiwisolver
+      packaging
+      pip
+      pyparsing
+      python-dateutil
     ]);
+
   # ++ lib.attrsets.attrValues (
   #    builtins.removeAttrs pkgs.pkgsx86_64_v3-core [
   #      "recurseForDerivations"
@@ -231,6 +234,7 @@
     "nct6775"
     "zenpower"
     "virtualbox"
+    "apfs"
   ];
   boot.blacklistedKernelModules = [ "k10temp" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.zenpower ];
@@ -239,7 +243,8 @@
     "zswap.compressor=zstd"
     "zswap.max_pool_percent=40"
     "zswap.shrinker_enabled=1"
-    "damon_reclaim.enabled=1" ];
+    "damon_reclaim.enabled=1"
+  ];
 
   i18n.inputMethod = {
     type = "ibus";
