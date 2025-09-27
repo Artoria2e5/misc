@@ -119,7 +119,7 @@
       zstd
       xz
     ])
-    ++ (with pkgs.python311Packages; [
+    ++ (with pkgs.python313Packages; [
       numpy
       matplotlib
       pillow
@@ -237,7 +237,7 @@
     "apfs"
   ];
   boot.blacklistedKernelModules = [ "k10temp" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.zenpower ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ apfs zenpower ];
   boot.kernelParams = [
     "zswap.enabled=1"
     "zswap.compressor=zstd"
