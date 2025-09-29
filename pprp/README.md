@@ -9,4 +9,4 @@ component being lost by the division to get `pow(3, mp-1, mp)`, but apparently b
 
 I am yet to find a counterexample where the original pPRP test fails but this one passes (or vice versa), but I have not done an exhaustive search.
 
-Being written in Python 3's native bigint, this code is not exactly fast for large p and d. But it beats needing to install `sagemath` from a broken Debian package! Or figuring out how to use gmpy2.
+~~Being written in Python 3's native bigint, this code is not exactly fast for large p and d.~~ It now uses gmpy2.

@@ -1,76 +1,108 @@
-def prp_mp(p: int) -> int:
-    mp: int = (1 << p) - 1
-    x = pow(3, mp+1, mp)
-    return x * pow(3, -2, mp) % mp
+#!/usr/bin/env python3
+# /// script
+# dependencies = [
+#   "gmpy2",
+# ]
+# ///
+from gmpy2 import mpz, xmpz, powmod, invert, c_divmod, mp_limbsize
+import math
+
+BITS_PER_LIMB = mp_limbsize()
+# Does not improve speed much
+SHRINK_T_FOR_D = False
+# Helps when testing with small p
+SHRINK_T_FOR_P = False
+
+
+def prp_mp(p: int) -> mpz:
+    mp = (mpz(1) << p) - 1
+    x = xmpz(powmod(3, mp + 1, mp))
+    x *= invert(9, mp)
+    return x % mp
+
 
 PPRP_T: int = 2046
-PPRP_TWOT: int = 1 << PPRP_T
+PPRP_TWOT = mpz(1) << PPRP_T
 
-def pprp_mp_d(p: int, d: int, res_mod_2tp2: int) -> bool:
+
+def pprp_mp_d(p: int, d, res_mod_2tp2) -> bool:
     # is M_p/d composite? Given res_mod_2tp2 = pow(3, mp-1, mp) % 2^(t+2)
     # (t+2) because I don't think we can safely get pow(3, mp-1, mp) % 2^t back otherwise? idk
-    mp: int = (1 << p) - 1
+    d = mpz(d)
+    res_mod_2tp2 = mpz(res_mod_2tp2)
+    mp = (mpz(1) << p) - 1
     t = PPRP_T
     twot = PPRP_TWOT
+    t_changed = False
 
-    if p <= t:
+    if SHRINK_T_FOR_P and p <= t:
         print("Adjusting t for p > t")
-        t = p - 3
-        twot = 1 << t
-        res_mod_2tp2 = res_mod_2tp2 % (1 << (t + 2))
+        t = p - 1
+        twot = mpz(1) << t
+        t_changed = True
 
     if d < 1 or d >= mp:
         raise ValueError("d must be in the range 0 < d < 2^p - 1")
-    
+
+    if SHRINK_T_FOR_D:
+        log2d = d.bit_length()
+        if t > log2d + BITS_PER_LIMB:
+            print("Adjusting t to just fit d")
+            t = math.ceil((log2d + BITS_PER_LIMB) / BITS_PER_LIMB) * BITS_PER_LIMB
+            t_changed = True
+
+    if t_changed:
+        twot = mpz(1) << t
+        res_mod_2tp2 %= mpz(1) << (t + 2)
+
     if d >= twot:
         raise ValueError("d must be less than 2^t")
 
     res_mod_twot = res_mod_2tp2 * 3 % twot
 
-    mp_d: int
-    rem: int
-    mp_d, rem = divmod(mp, d)
+    mp_d, rem = c_divmod(mp, d)
 
     if rem != 0:
         raise ValueError("d must divide 2^p - 1")
 
-    s: int = pow(3, d, mp_d)
+    s = powmod(3, d, mp_d) % twot
     # All three possibilities
-    w0: int = (d * (s - res_mod_twot)) % twot
-    w1: int = (d * (s - res_mod_twot - 1)) % twot
-    w2: int = (d * (s - res_mod_twot - 2)) % twot
+    w0 = d * (s - res_mod_twot) % twot
+    w1 = d * (s - res_mod_twot - 1) % twot
+    w2 = d * (s - res_mod_twot - 2) % twot
     return w0 >= d and w1 >= d and w2 >= d
 
-def parse_res2048(res_str: str) -> int:
+
+def parse_res2048(res_str: str) -> mpz:
     res_str = res_str.replace(" ", "")
     if len(res_str) != 512:
         raise ValueError("res_str must be a 512-character hexadecimal string")
-    return int(res_str, 16)
+    return mpz(res_str, 16)
+
 
 import sys
 
+
 def main(argv: [str]):
     from functools import reduce
+
     if len(argv) < 3:
         print("Usage: python pprp.py <p> <d> [res2048]")
         sys.exit(1)
     p = int(argv[1])
-    d = reduce(lambda a, b: a*b, [int(x) for x in argv[2].split(',')], 1)
-    res2048 = parse_res2048(argv[3]) if len(argv) > 3 else (prp_mp(p) % (1 << 2048))
+    d = reduce(lambda a, b: a * b, [mpz(x) for x in argv[2].split(",")], mpz(1))
+    res2048 = (
+        parse_res2048(argv[3]) if len(argv) > 3 else (prp_mp(p) % (mpz(1) << 2048))
+    )
     if pprp_mp_d(p, d, res2048):
         print("M%d/%d is definitely composite" % (p, d))
     else:
         print("M%d/%d could be a pPRP..." % (p, d))
 
 
+# Also: 97 11447 (False), 131 263 (True)
 # All of these are known prp
-TEST_CASES="""\
-97
-11447
-
-131
-263
-
+TEST_CASES = """\
 2351
 4703,1357402684751110526455958656804092877758955940025791,1705752023090566268114129569577822571051003489941200079
 3387EA6A0AF729D1EBA47F78E953881A0BB0BEA3AC93D422156072C4D653F546936C7FED49A05E366F9551EF52134E565891799DEBB7C726E75AA48394DBDF2D7102E4D8292CDAB7F26F9933A74444F48E85DD3F3D99CC17F97876B23192C56A6D397B16B65B82D8579299291C8AB2B3E976FA73DA75C5E306419C2E4A36B852D28BD5F0DB6035262A1ECDE5748861720464F7D0A6BDE4CD9891943B7953CAD722D940EF72C634741FE68ADA8AAB0A8295573B31208531E25CA2EB071275A36174FF3C53CC07C4DD5296F721C71B8C3496FDC7993ADDD736C07C3D75EF6D11D49CA5860C98915C7FEFDCE4590089441FCD3B43898B8E955BFB56B4A9A31A928F
@@ -145,20 +177,25 @@ D9BCA855A8EA9F17497F715457B2A3F043FF9A1E8297D5DF76525F0EDEF118EC850EC0DFFACFE712
 
 105269
 308568703561,44450301591671,36340288035156065237111970871,304727251426107823036749303510161
-E1A2484D92E95E5420FABB19C9FEBEA60151623B7A9C616365678E115F383C32EA57C81A2F5EE9B29460F347008C41BACE403E2319EE80FCFF8F250C8074A87DE5B8AEA767B7FE8B90B80ECD164694DF4306E87A7631C921F13E9755B79E334B9C32F65E16CC021C787676319D9153235FD95C5377846FC0A9A0DEBEE97C217736FD4E63540D1C9CA77E74933032334B59906F739FD1D16F8558CB25C87890CB7373DDC1176C72E80A20A0C8BB3AFF9670DDBF662CC7420DED9B8804072D381925E09919952EDF16908C40BEC0F7ADB3B2058BB8E46B80BEFBCD878128F3B9E9CF44FDF7413AE569089CA204AAE4B9891E0AC6CD402E3DCBD85190A4CE464B95""".split("\n\n")
+E1A2484D92E95E5420FABB19C9FEBEA60151623B7A9C616365678E115F383C32EA57C81A2F5EE9B29460F347008C41BACE403E2319EE80FCFF8F250C8074A87DE5B8AEA767B7FE8B90B80ECD164694DF4306E87A7631C921F13E9755B79E334B9C32F65E16CC021C787676319D9153235FD95C5377846FC0A9A0DEBEE97C217736FD4E63540D1C9CA77E74933032334B59906F739FD1D16F8558CB25C87890CB7373DDC1176C72E80A20A0C8BB3AFF9670DDBF662CC7420DED9B8804072D381925E09919952EDF16908C40BEC0F7ADB3B2058BB8E46B80BEFBCD878128F3B9E9CF44FDF7413AE569089CA204AAE4B9891E0AC6CD402E3DCBD85190A4CE464B95
 
-#8247949
-#10623358313,23839855293703,179607668296296461174489
-#FBCD7B7401FFCF6860F1BFF2FDC9D651D83298DF64A489ABF912F920B748CAFE6157B7310F00201CC07A9A63919C1FF2028F35D3425359B37003FFBE607D0A3395ACD31F29D4FAF1388911972D5FDFCFBE0895ECFFBE4C216C3421D00ACBE2E1B486568AEB6FFD3DA8AC280CAAA779A792AF70A4F072BB3D69E2C59B396EE7A8423F3EFEA36DE607EDA03B886E237FCA2A693F6E4D111B442469AFA14387A9C68B5D8D0D8EE7B8833D588D022B8D2832BA14BC56BA092D51E4F9FDDC9D895AEF45AB275142E05BAC5583DF04C01FBFAEB6E8E03BCAAEA99E848227D86E1CA027C6503334C443593396D064FB03ECC49A27B32D53887607FC5DA866DED3460939
+8247949
+10623358313,23839855293703,179607668296296461174489
+FBCD7B7401FFCF6860F1BFF2FDC9D651D83298DF64A489ABF912F920B748CAFE6157B7310F00201CC07A9A63919C1FF2028F35D3425359B37003FFBE607D0A3395ACD31F29D4FAF1388911972D5FDFCFBE0895ECFFBE4C216C3421D00ACBE2E1B486568AEB6FFD3DA8AC280CAAA779A792AF70A4F072BB3D69E2C59B396EE7A8423F3EFEA36DE607EDA03B886E237FCA2A693F6E4D111B442469AFA14387A9C68B5D8D0D8EE7B8833D588D022B8D2832BA14BC56BA092D51E4F9FDDC9D895AEF45AB275142E05BAC5583DF04C01FBFAEB6E8E03BCAAEA99E848227D86E1CA027C6503334C443593396D064FB03ECC49A27B32D53887607FC5DA866DED3460939""".split(
+    "\n\n"
+)
+
 
 def test():
     for i in TEST_CASES:
         args = i.split("\n")
         main(["test"] + args)
 
+
 from itertools import takewhile, islice
 from collections import deque
 from functools import cache
+
 
 def consume(iterator, n=None):
     if n is None:
@@ -166,11 +203,11 @@ def consume(iterator, n=None):
     else:
         next(islice(iterator, n, n), None)
 
+
 # Sieve of Eratosthenes
 # David Eppstein, UC Irvine, 28 Feb 2002
-D = {}
 def gen_primes(maxp):
-    global D
+    D = {}
     q = 2
     while q <= maxp:
         if q not in D:
@@ -181,64 +218,77 @@ def gen_primes(maxp):
                 D.setdefault(p + q, []).append(p)
         q += 1
 
+
 # https://gist.github.com/Ayrx/5884790
 def miller_rabin(n):
+    n = mpz(n)
     if n == 2:
         return True
 
     if n % 2 == 0:
         return False
 
-    r, s = 0, n - 1
+    r = mpz(0)
+    s = n - 1
     while s % 2 == 0:
         r += 1
         s //= 2
     for a in [31, 73]:
-        x = pow(a, s, n)
+        x = powmod(a, s, n)
         if x == 1 or x == n - 1:
             continue
         for _ in range(r - 1):
-            x = pow(x, 2, n)
+            x = powmod(x, 2, n)
             if x == n - 1:
                 break
         else:
             return False
     return True
 
-PPRP_T = 512
-PPRP_TWOT = 1 << PPRP_T
+
 def prpc(maxp):
     # someone told me that pi(512) = 97
     primes = gen_primes(maxp)
     consume(primes, 97)
 
     for p in primes:
-        d = 1
-        mp = (1 << p) - 1
+        d = mpz(1)
+        mp = (mpz(1) << p) - 1
 
         for q in range(2 * p + 1, 10000 * p + 1, 2 * p):
-            if miller_rabin(q) and pow(2, p, q) == 1:
+            if miller_rabin(q) and powmod(2, p, q) == 1:
                 d *= q
 
         if d > PPRP_TWOT:
             print("Too big divisors")
             continue
-        
+
         if d > 1 and d < mp:
             res = prp_mp(p)
-            res514 = (res % (1 << (PPRP_T + 2)))
+            res514 = res % (mpz(1) << (PPRP_T + 2))
             res = res514 * 3 % PPRP_TWOT
             mp_d = mp // d
-            s = pow(3, d, mp_d) % PPRP_TWOT
-            w0 = (d * (s - res)) % PPRP_TWOT
-            w1 = (d * (s - res - 1)) % PPRP_TWOT
-            w2 = (d * (s - res - 2)) % PPRP_TWOT
+            s = powmod(3, d, mp_d) % PPRP_TWOT
+            w0 = d * (s - res) % PPRP_TWOT
+            w1 = d * (s - res - 1) % PPRP_TWOT
+            w2 = d * (s - res - 2) % PPRP_TWOT
             if w0 < d or w1 < d or w2 < d:
                 print(f"Maybe! p={p}, d={d}")
 
+
 if __name__ == "__main__":
     import sys
-    prpc(10000)
-    # test()
-    # main(sys.argv)
 
+    if len(sys.argv) < 2:
+        print("Usage: pprp.py <test|prpc>")
+        print("Usage: pprp.py <p> <d> [res2048]")
+        sys.exit(1)
+
+    if sys.argv[1] == "test":
+        test()
+    elif sys.argv[1] == "prpc":
+        PPRP_T = 512
+        PPRP_TWOT = mpz(1) << PPRP_T
+        prpc(10000)
+    else:
+        main(sys.argv)
