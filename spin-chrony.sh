@@ -89,10 +89,13 @@ NEW_CONTENT="
 == $(date -Iseconds) ==
 
 === IPv4 RAW TABLE ===
-$(iptables -t raw -Z && iptables -t raw -v -n -L)
+$(iptables -t raw -v -n -L)
 
 === IPv6 RAW TABLE ===
-$(ip6tables -t raw -Z && ip6tables -t raw -v -n -L)"
+$(ip6tables -t raw -v -n -L)"
+
+iptables -t raw -Z
+ip6tables -t raw -Z
 
 # Create a temporary file
 TEMP_FILE=$(mktemp)
@@ -139,14 +142,14 @@ IPTABLES='*raw
 :OUTPUT ACCEPT [0:0]
 -A PREROUTING -p udp -m udp --dport 123 -j NOTRACK
 -A PREROUTING -p udp -m udp --dport 11123 -j NOTRACK
--A PREROUTING -p udp -m udp --dport 123 -m hashlimit --hashlimit-above 8/sec --hashlimit-burst 16 --hashlimit-mode srcip --hashlimit-name ntp1 --hashlimit-htable-max 4096 --hashlimit-htable-expire 8000 --hashlimit-srcmask @srcmark@ -j DROP
+-A PREROUTING -p udp -m udp --dport 123 -m hashlimit --hashlimit-above 1/sec --hashlimit-burst 16 --hashlimit-mode srcip --hashlimit-name ntp1 --hashlimit-htable-max 4096 --hashlimit-htable-expire 8000 --hashlimit-srcmask @srcmark@ -j DROP
 -A PREROUTING -p udp -m udp --dport 123 -m statistic --mode random --probability 0.06250000000 -j ACCEPT
--A PREROUTING -p udp -m udp --dport 123 -m hashlimit --hashlimit-above 8/min --hashlimit-burst 8 --hashlimit-mode srcip --hashlimit-name ntp --hashlimit-htable-max 131072 --hashlimit-htable-expire 64000 --hashlimit-srcmask @srcmark@ -j DROP
+-A PREROUTING -p udp -m udp --dport 123 -m hashlimit --hashlimit-above 1/min --hashlimit-burst 8 --hashlimit-mode srcip --hashlimit-name ntp --hashlimit-htable-max 131072 --hashlimit-htable-expire 600000 --hashlimit-srcmask @srcmark@ -j DROP
 -A OUTPUT -p udp -m udp --sport 123 -j NOTRACK
 -A OUTPUT -p udp -m udp --sport 11123 -j NOTRACK
 COMMIT'
-IPTABLES4=${IPTABLES//@srcmark@/28}
-IPTABLES6=${IPTABLES//@srcmark@/60}
+IPTABLES4=${IPTABLES//@srcmark@/24}
+IPTABLES6=${IPTABLES//@srcmark@/48}
 
 apt install -y ufw
 ufw allow ssh
